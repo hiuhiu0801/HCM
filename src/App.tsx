@@ -26,6 +26,8 @@ import {
   ArrowLeft,
   ChevronUp
 } from "lucide-react";
+import Session11Horizontal from "./Session11Horizontal";
+import Session10Horizontal from "./Session10Horizontal";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { cn } from "@/lib/utils";
@@ -1027,7 +1029,7 @@ export default function App() {
           {/* HIỆU ỨNG MỞ MÀN CHẠY ĐỘC LẬP TẠI ĐÂY */}
           <CinematicReveal />
           
-          <main className="flex-1 overflow-x-hidden bg-gray-50 dark:bg-[#0A0A0A] text-gray-800 dark:text-gray-200 selection:bg-[#D4AF37] selection:text-black transition-colors duration-300">
+          <main className="flex-1 overflow-x-clip bg-gray-50 dark:bg-[#0A0A0A] text-gray-800 dark:text-gray-200 selection:bg-[#D4AF37] selection:text-black transition-colors duration-300">
             
             {/* TẠO KHOẢNG TRẮNG ĐỂ CUỘN (SCROLL SPACER) THEO Ý TƯỞNG CỦA BẠN */}
             {/* Chiều cao 1000px này phải khớp với con số 1000 trong file CinematicReveal.tsx */}
@@ -1091,107 +1093,12 @@ export default function App() {
             {/* ==========================================
                 B. SESSION 10 
             ========================================== */}
-            <section id="session10" className="py-32 relative z-10 border-t border-gray-200 dark:border-white/5">
-              <div className="container mx-auto px-4 md:px-8 max-w-7xl">
-                <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-100px" }} className="text-center mb-20">
-                  <span className="text-[#8B0000] dark:text-[#D4AF37] tracking-[0.3em] text-sm font-bold uppercase mb-4 block">Session 10</span>
-                  <h2 className="text-4xl md:text-5xl font-serif font-bold text-gray-900 dark:text-white uppercase tracking-wide">
-                    Thời Kỳ Quá Độ Lên CNXH
-                  </h2>
-                  <div className="w-24 h-[2px] bg-gradient-to-r from-transparent via-[#8B0000] to-transparent mx-auto mt-6"></div>
-                </motion.div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
-                  <ExhibitionCard
-                    icon={<Shield className="w-8 h-8 text-[#8B0000] dark:text-[#D4AF37]" />}
-                    title="1. Tính chất thời kỳ quá độ"
-                    delay={0.1}
-                    items={[
-                      "Là một thời kỳ lịch sử vô cùng khó khăn.",
-                      "Diễn biến phức tạp, đan xen cũ - mới.",
-                      "Mang tính chất lâu dài và bền bỉ.",
-                      "Đòi hỏi sự hy sinh, gian khổ.",
-                      <span className="text-[#8B0000] dark:text-[#D4AF37] font-bold italic">“Khó hơn đánh giặc” - Hồ Chí Minh</span>
-                    ]}
-                  />
-                  <ExhibitionCard
-                    icon={<Flag className="w-8 h-8 text-[#8B0000] dark:text-[#D4AF37]" />}
-                    title="2. Đặc điểm Việt Nam"
-                    delay={0.2}
-                    items={[
-                      "Xuất phát từ một nước nông nghiệp lạc hậu.",
-                      "Tiến thẳng lên Chủ nghĩa Xã hội.",
-                      "Không qua tư bản chủ nghĩa.",
-                      "Đi lên từ xuất phát điểm kinh tế thấp, hậu quả chiến tranh."
-                    ]}
-                  />
-                  <ExhibitionCard
-                    icon={<Layers className="w-8 h-8 text-[#8B0000] dark:text-[#D4AF37]" />}
-                    title="3. Nhiệm vụ trên các lĩnh vực"
-                    delay={0.3}
-                    items={[
-                      "Chính trị: Giữ vững vai trò lãnh đạo của Đảng, Nhà nước của dân.",
-                      "Kinh tế: Phát triển LLSX, công nghiệp hóa - hiện đại hóa.",
-                      "Văn hóa: Xây dựng nền văn hóa đậm đà bản sắc dân tộc.",
-                      "Quan hệ xã hội: Đảm bảo công bằng, dân chủ, văn minh."
-                    ]}
-                  />
-                  <ExhibitionCard
-                    icon={<BookOpen className="w-8 h-8 text-[#8B0000] dark:text-[#D4AF37]" />}
-                    title="4. Nguyên tắc xây dựng CNXH"
-                    delay={0.4}
-                    items={[
-                      "Dựa trên nền tảng Chủ nghĩa Mác - Lênin.",
-                      "Giữ vững độc lập dân tộc làm cốt lõi.",
-                      "Học hỏi, vận dụng sáng tạo kinh nghiệm quốc tế.",
-                      "Kết hợp chặt chẽ: Xây đi đôi với chống."
-                    ]}
-                  />
-                </div>
-              </div>
-            </section>
+           <Session10Horizontal />
 
             {/* ==========================================
                 C. SESSION 11
             ========================================== */}
-            <section id="session11" className="py-32 relative z-10 bg-white dark:bg-black/40 border-t border-gray-200 dark:border-white/5">
-              <div className="container mx-auto px-4 md:px-8 max-w-6xl">
-                <div className="flex flex-col lg:flex-row gap-16 items-center">
-                  <motion.div initial={{ opacity: 0, x: -50 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="lg:w-1/2">
-                    <span className="text-[#8B0000] dark:text-[#D4AF37] tracking-[0.3em] text-sm font-bold uppercase mb-4 block">Session 11</span>
-                    <h2 className="text-4xl md:text-5xl font-serif font-bold text-gray-900 dark:text-white uppercase tracking-wide leading-tight mb-8">
-                      Độc Lập Dân Tộc <br /> <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#8B0000] to-red-500 dark:to-[#D4AF37]">&</span> Chủ Nghĩa Xã Hội
-                    </h2>
-                    <div className="prose prose-lg dark:prose-invert text-gray-700 dark:text-gray-300">
-                      <p className="leading-relaxed border-l-4 border-[#8B0000] pl-6 italic">
-                        "Độc lập dân tộc là tiền đề, là điều kiện tiên quyết để xây dựng chủ nghĩa xã hội. Và ngược lại, xây dựng chủ nghĩa xã hội là cơ sở đảm bảo vững chắc cho độc lập dân tộc."
-                      </p>
-                    </div>
-                  </motion.div>
-
-                  <motion.div initial={{ opacity: 0, x: 50 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="lg:w-1/2 space-y-8 relative">
-                    <div className="absolute left-6 top-0 bottom-0 w-[2px] bg-gradient-to-b from-[#8B0000] via-red-400 dark:via-[#D4AF37] to-transparent opacity-50"></div>
-
-                    <div className="relative pl-16">
-                      <div className="absolute left-4 top-2 w-5 h-5 bg-white dark:bg-[#0A0A0A] border-2 border-red-500 dark:border-[#D4AF37] rounded-full shadow-[0_0_15px_rgba(255,0,0,0.5)] dark:shadow-[0_0_15px_rgba(212,175,55,0.8)]"></div>
-                      <h4 className="text-2xl font-bold text-gray-900 dark:text-white mb-2 font-serif">Sợi chỉ đỏ xuyên suốt</h4>
-                      <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                        Đây là tư tưởng cốt lõi, là ngọn cờ dẫn đường cho cách mạng Việt Nam. Sự kết hợp biện chứng giữa giải phóng dân tộc và giải phóng giai cấp.
-                      </p>
-                    </div>
-
-                    <div className="relative pl-16">
-                      <div className="absolute left-4 top-2 w-5 h-5 bg-white dark:bg-[#0A0A0A] border-2 border-[#8B0000] rounded-full shadow-[0_0_15px_rgba(139,0,0,0.5)] dark:shadow-[0_0_15px_rgba(139,0,0,0.8)]"></div>
-                      <h4 className="text-2xl font-bold text-gray-900 dark:text-white mb-2 font-serif">Vận dụng trong giai đoạn hiện nay</h4>
-                      <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                        Phát huy sức mạnh đại đoàn kết toàn dân tộc, kết hợp sức mạnh dân tộc với sức mạnh thời đại trong bối cảnh toàn cầu hóa và hội nhập quốc tế sâu rộng.
-                      </p>
-                    </div>
-                  </motion.div>
-                </div>
-              </div>
-            </section>
-
+            <Session11Horizontal />
             {/* ==========================================
                 D. FLIPBOOK 
             ========================================== */}
