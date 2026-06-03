@@ -26,6 +26,9 @@ import {
   ArrowLeft,
   ChevronUp
 } from "lucide-react";
+import TechnicalPage from "./TechnicalPage";
+import { TECHNICAL_FLIPBOOK_PAGES } from "./data/technicalFlipbookPages";
+import StrategicStoryMap from "./StrategicStoryMap";
 import Session11Horizontal from "./Session11Horizontal";
 import Session10Horizontal from "./Session10Horizontal";
 import ReactMarkdown from "react-markdown";
@@ -49,7 +52,7 @@ import {
   DialogFooter
 } from "@/components/ui/dialog";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { CinematicReveal } from "./CinematicReveal"; 
+import { CinematicReveal } from "./CinematicReveal";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -612,17 +615,17 @@ const InteractiveLibrary = () => {
             <gridHelper args={[100, 100, '#44ffaa', '#052211']} position={[0, -3, 0]} />
 
             {/* Vòng chỉ dẫn quỹ đạo ảo */}
-            <mesh rotation={[Math.PI/2, 0, 0]} position={[0, 0, 0]}>
-               <torusGeometry args={[3.5, 0.01, 16, 100]} />
-               <meshBasicMaterial color="#ffffff" transparent opacity={0.15} />
+            <mesh rotation={[Math.PI / 2, 0, 0]} position={[0, 0, 0]}>
+              <torusGeometry args={[3.5, 0.01, 16, 100]} />
+              <meshBasicMaterial color="#ffffff" transparent opacity={0.15} />
             </mesh>
 
             {/* Khởi tạo hệ thống Vệ tinh */}
             {ARTIFACTS_ROOM3.map((art) => (
-              <OrbitalArtifact 
-                key={art.id} 
-                data={art} 
-                onFocus={setFocusedArtifact} 
+              <OrbitalArtifact
+                key={art.id}
+                data={art}
+                onFocus={setFocusedArtifact}
                 isPaused={!!focusedArtifact} // Truyền cờ Pause khi có object đang xem
               />
             ))}
@@ -1028,9 +1031,9 @@ export default function App() {
         <>
           {/* HIỆU ỨNG MỞ MÀN CHẠY ĐỘC LẬP TẠI ĐÂY */}
           <CinematicReveal />
-          
+
           <main className="flex-1 overflow-x-clip bg-gray-50 dark:bg-[#0A0A0A] text-gray-800 dark:text-gray-200 selection:bg-[#D4AF37] selection:text-black transition-colors duration-300">
-            
+
             {/* TẠO KHOẢNG TRẮNG ĐỂ CUỘN (SCROLL SPACER) THEO Ý TƯỞNG CỦA BẠN */}
             {/* Chiều cao 1000px này phải khớp với con số 1000 trong file CinematicReveal.tsx */}
             <div className="w-full h-[850px] pointer-events-none" aria-hidden="true"></div>
@@ -1047,14 +1050,14 @@ export default function App() {
             ========================================== */}
             <section id="hero" className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden z-10">
               {/* Ảnh nền */}
-              <div 
+              <div
                 className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat opacity-60 dark:opacity-50"
                 style={{ backgroundImage: `url('/images/BG1.jpg')` }}
               ></div>
 
               {/* Lớp phủ gradient sáng/tối */}
               <div className="absolute inset-0 bg-gradient-to-b from-white/20 via-white/60 to-gray-50 dark:from-black/50 dark:via-black/40 dark:to-black/80 z-0"></div>
-              
+
               <PhilosophicalParticles density={30} className="z-0 opacity-40 text-[#8B0000] dark:text-[#D4AF37]" />
 
               <div className="container mx-auto px-4 relative z-10">
@@ -1093,7 +1096,7 @@ export default function App() {
             {/* ==========================================
                 B. SESSION 10 
             ========================================== */}
-           <Session10Horizontal />
+            <Session10Horizontal />
 
             {/* ==========================================
                 C. SESSION 11
@@ -1102,35 +1105,16 @@ export default function App() {
             {/* ==========================================
                 D. FLIPBOOK 
             ========================================== */}
-            <section id="flipbook" className="py-32 relative z-10 bg-gray-50 dark:bg-[#0A0A0A] border-t border-gray-200 dark:border-white/5">
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(139,0,0,0.03),transparent_60%)] dark:bg-[radial-gradient(circle_at_center,rgba(212,175,55,0.03),transparent_60%)] pointer-events-none"></div>
-
-              <div className="container mx-auto px-4 md:px-8 max-w-6xl relative z-10">
-                <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-16">
-                  <Badge variant="outline" className="mb-6 px-4 py-1 border-[#8B0000]/30 dark:border-[#D4AF37]/30 text-[#8B0000] dark:text-[#D4AF37] bg-[#8B0000]/5 dark:bg-[#D4AF37]/5 font-medium tracking-[0.2em] uppercase text-xs backdrop-blur-md">
-                    Tư liệu tương tác
-                  </Badge>
-                  <h2 className="text-4xl md:text-5xl font-serif font-bold text-gray-900 dark:text-white uppercase tracking-wide">
-                    Góc Đọc Sách
-                  </h2>
-                  <div className="w-16 h-[2px] bg-gradient-to-r from-transparent via-[#8B0000] to-transparent mx-auto mt-6 mb-6"></div>
-                  <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto text-lg leading-relaxed">
-                    Lật mở từng trang tư liệu để tìm hiểu sâu hơn về bối cảnh lịch sử và giá trị thời đại của Tư tưởng Hồ Chí Minh.
-                  </p>
-                </motion.div>
-
-                <div id="flipbook-reader" className="rounded-[2rem] border border-gray-200 dark:border-white/10 bg-white dark:bg-white/[0.02] backdrop-blur-md shadow-[0_0_40px_rgba(0,0,0,0.05)] dark:shadow-[0_0_40px_rgba(0,0,0,0.8)] p-4 md:p-8">
-                  <FlipBook />
-                </div>
-              </div>
+            <section id="strategic-map">
+              <StrategicStoryMap />
             </section>
 
           </main>
 
           {/* FOOTER */}
-         <Footer />
+          <Footer />
         </>
-        
+
       ) : (
         <main className="fixed top-20 left-0 right-0 bottom-0 overflow-hidden bg-[#050505]">
           <InteractiveLibrary />

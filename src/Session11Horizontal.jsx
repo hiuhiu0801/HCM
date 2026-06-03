@@ -19,7 +19,7 @@ const session11Sections = [
         icon: Flag,
         layout: "contentLarge",
         backgroundImage: "/images/Red.png",
-        video: "/videos/session11/independence-bg.mp4",
+        video: "/videos/DoNat.mp4",
         accent: "red",
         content: [
             "Độc lập dân tộc là tiền đề, là điều kiện tiên quyết để xây dựng chủ nghĩa xã hội.",
@@ -40,7 +40,7 @@ const session11Sections = [
         icon: Landmark,
         layout: "videoLarge",
         backgroundImage: "/images/white.png",
-        video: "/videos/session11/independence-video.mp4",
+        video: "/videos/Video2.mp4",
         accent: "amber",
         content: [
             "Một dân tộc chỉ có thể tự lựa chọn tương lai khi có độc lập.",
@@ -59,7 +59,7 @@ const session11Sections = [
         icon: Globe2,
         layout: "contentLarge",
         backgroundImage: "/images/green.png",
-        video: "/videos/session11/modern-bg.mp4",
+        video: "/videos/VanDung.mp4",
         accent: "green",
         content: [
             "Phát huy sức mạnh đại đoàn kết toàn dân tộc.",
@@ -81,7 +81,7 @@ const session11Sections = [
         icon: ShieldCheck,
         layout: "videoLarge",
         backgroundImage: "/images/blue.png",
-        video: "/videos/session11/modern-video.mp4",
+        video: "/videos/Hiendai1.mp4",
         accent: "blue",
         content: [
             "Việt Nam hiện đại cần phát triển kinh tế, khoa học, giáo dục và công nghệ.",

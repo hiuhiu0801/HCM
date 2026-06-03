@@ -6,7 +6,8 @@ import React, {
   useState,
 } from "react";
 import HTMLFlipBook from "react-pageflip";
-
+import TechnicalPage from "./TechnicalPage";
+import { TECHNICAL_FLIPBOOK_PAGES } from "./data/technicalFlipbookPages";
 const PAGE_RATIO = 0.5625;
 
 const DEFAULT_PAGES = [
@@ -76,7 +77,7 @@ const FlipBook = React.forwardRef((props = {}, ref) => {
   const [currentPage, setCurrentPage] = useState(0);
   const [bookSize, setBookSize] = useState({ width: 500, height: 281 });
 
-  const pages = useMemo(() => DEFAULT_PAGES, []);
+  const pages = useMemo(() => TECHNICAL_FLIPBOOK_PAGES, []);
   const storyTexts = useMemo(() => DEFAULT_STORY_TEXTS, []);
   const audioFiles = useMemo(() => {
     if (Array.isArray(externalAudioFiles) && externalAudioFiles.length > 0) {
@@ -628,6 +629,194 @@ const FlipBook = React.forwardRef((props = {}, ref) => {
             width: calc(50% - 8px);
             min-width: 140px;
           }
+          .technical-page {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #020617;
+  color: white;
+  font-family: Inter, system-ui, sans-serif;
+}
+
+.technical-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.9) contrast(1.08);
+  transform: scale(1.02);
+}
+
+.technical-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 50% 35%, rgba(255, 255, 255, 0.14), transparent 30%),
+    linear-gradient(90deg, rgba(2, 6, 23, 0.9), rgba(2, 6, 23, 0.45), rgba(2, 6, 23, 0.86));
+  z-index: 1;
+}
+
+.tech-grid {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px);
+  background-size: 28px 28px;
+  mask-image: linear-gradient(to bottom, transparent, black 20%, black 80%, transparent);
+  pointer-events: none;
+}
+
+.tech-header {
+  position: absolute;
+  z-index: 4;
+  top: 8%;
+  left: 7%;
+  right: 7%;
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+
+.tech-icon {
+  width: 46px;
+  height: 46px;
+  border: 1px solid;
+  border-radius: 14px;
+  background: rgba(2, 6, 23, 0.62);
+  backdrop-filter: blur(10px);
+  display: grid;
+  place-items: center;
+  box-shadow: 0 0 24px rgba(255,255,255,0.08);
+}
+
+.tech-kicker {
+  margin: 0 0 6px;
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  color: rgba(255,255,255,0.58);
+  font-weight: 800;
+}
+
+.tech-header h2 {
+  margin: 0;
+  font-size: clamp(18px, 2.2vw, 32px);
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+}
+
+.tech-header p {
+  margin: 8px 0 0;
+  font-size: clamp(10px, 1vw, 14px);
+  color: rgba(255,255,255,0.76);
+  line-height: 1.45;
+  max-width: 520px;
+}
+
+.tech-tags {
+  position: absolute;
+  z-index: 4;
+  left: 7%;
+  bottom: 22%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tech-tags span {
+  font-size: 10px;
+  padding: 7px 10px;
+  border: 1px solid;
+  border-radius: 999px;
+  background: rgba(2, 6, 23, 0.62);
+  backdrop-filter: blur(10px);
+  color: rgba(255,255,255,0.86);
+}
+
+.tech-metrics {
+  position: absolute;
+  z-index: 4;
+  left: 7%;
+  right: 7%;
+  bottom: 7%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.tech-card {
+  padding: 12px;
+  border: 1px solid rgba(255,255,255,0.14);
+  border-radius: 16px;
+  background: rgba(2, 6, 23, 0.68);
+  backdrop-filter: blur(12px);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
+}
+
+.tech-card span {
+  display: block;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: rgba(255,255,255,0.48);
+  margin-bottom: 5px;
+}
+
+.tech-card strong {
+  font-size: 13px;
+  letter-spacing: -0.02em;
+}
+
+.tech-map-node {
+  position: absolute;
+  z-index: 4;
+  right: 10%;
+  top: 38%;
+  width: 82px;
+  height: 82px;
+  border: 1px solid;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  background: rgba(2, 6, 23, 0.38);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 0 40px rgba(255,255,255,0.08);
+}
+
+.tech-map-node::before,
+.tech-map-node::after {
+  content: "";
+  position: absolute;
+  inset: -14px;
+  border: 1px solid rgba(255,255,255,0.16);
+  border-radius: inherit;
+}
+
+.tech-map-node::after {
+  inset: -28px;
+  opacity: 0.5;
+}
+
+.tech-map-node div {
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  box-shadow: 0 0 24px currentColor;
+}
+
+.tech-footer-line {
+  position: absolute;
+  z-index: 5;
+  left: 7%;
+  right: 7%;
+  bottom: 4%;
+  height: 2px;
+  opacity: 0.9;
+  box-shadow: 0 0 18px currentColor;
+}             
         }
       `}</style>
 
@@ -662,11 +851,11 @@ const FlipBook = React.forwardRef((props = {}, ref) => {
         >
           {pages.map((page, index) => (
             <div
-              key={index}
+              key={page.id}
               className={`page ${index % 2 === 0 ? "page-right" : "page-left"}`}
             >
               <div className="page-inner">
-                <img src={page.src} alt={page.alt} className="page-image" />
+                <TechnicalPage page={page} />
               </div>
             </div>
           ))}
