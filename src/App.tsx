@@ -1,17 +1,11 @@
-import { useState, useRef, useEffect, useMemo, Suspense } from "react";
+import { useState, useRef, useEffect, useMemo } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Toaster, toast } from "sonner";
 import {
-  BookOpen,
   MessageSquare,
   Send,
   X,
   ChevronRight,
-  Layers,
-  RefreshCw,
-  Zap,
-  ArrowRight,
-  Info,
   LogOut,
   User,
   Settings,
@@ -20,14 +14,9 @@ import {
   Camera,
   Sun,
   Moon,
-  Flag,
-  Shield,
-  Landmark,
-  ArrowLeft,
-  ChevronUp
+  Landmark
 } from "lucide-react";
-import TechnicalPage from "./TechnicalPage";
-import { TECHNICAL_FLIPBOOK_PAGES } from "./data/technicalFlipbookPages";
+import Session12CommandCenter from "./Session12CommandCenter";
 import StrategicStoryMap from "./StrategicStoryMap";
 import Session11Horizontal from "./Session11Horizontal";
 import Session10Horizontal from "./Session10Horizontal";
@@ -35,20 +24,14 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { cn } from "@/lib/utils";
 import { Button, buttonVariants } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Html } from '@react-three/drei';
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
   DialogFooter
 } from "@/components/ui/dialog";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -66,16 +49,7 @@ import {
 import { getChatResponse } from "./lib/gemini";
 import { auth, googleProvider } from "./lib/firebase";
 import { signInWithPopup, signOut, onAuthStateChanged, User as FirebaseUser, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile, sendPasswordResetEmail } from "firebase/auth";
-import FlipBook from "./FlipBook";
 import { Footer } from "./Footer"; // Sửa lại đường dẫn nếu bạn để ở thư mục khác, VD: "./components/Footer"
-// ==========================================
-// R3F IMPORTS CHO LIBRARY 3D
-// ==========================================
-import { Canvas, useFrame } from '@react-three/fiber';
-import { Float, Text, useCursor, Sparkles, Image } from '@react-three/drei';
-import { EffectComposer, Bloom, Vignette, Noise } from '@react-three/postprocessing';
-import * as THREE from 'three';
-
 // ==========================================
 // INTERFACES
 // ==========================================
@@ -90,36 +64,8 @@ interface UserProfile {
   photoURL?: string;
 }
 
-interface Law {
-  id: string;
-  title: string;
-  shortTitle: string;
-  subtitle: string;
-  icon: React.ReactNode;
-  content: string;
-  example: string
-  imagePrompt: string;
-  imageUrl?: string;
-}
-
-interface Category {
-  id: string;
-  title: string;
-  definition: string;
-  detailedDefinition: string;
-  relationship: string;
-  meaning: string;
-  example: string;
-  icon: React.ReactNode;
-}
-
-const FEATURE_IMAGES = {
-  hero: "https://images.unsplash.com/photo-1516979187457-637abb4f9353?auto=format&fit=crop&w=1400&q=80",
-  overview: "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=1200&q=80",
-};
-
 // ==========================================
-// THÀNH PHẦN DÙNG CHUNG (2D & 3D)
+// THÀNH PHẦN DÙNG CHUNG (2D)
 // ==========================================
 const PhilosophicalParticles = ({ density = 20, className = "" }: { density?: number; className?: string }) => {
   const particles = useMemo(() => {
@@ -150,506 +96,12 @@ const PhilosophicalParticles = ({ density = 20, className = "" }: { density?: nu
 };
 
 // ==========================================
-// 3D LIBRARY COMPONENTS
-// ==========================================
-type SceneState = 'intro' | 'hub' | 'room1' | 'room2' | 'room3';
-
-const ARTIFACTS_ROOM1 = [
-  {
-    id: 'gear',
-    name: 'Bánh Răng Khởi Nguyên',
-    desc: 'Tính chất thời kỳ quá độ lên CNXH được Chủ tịch Hồ Chí Minh đánh giá là một cuộc biến đổi sâu sắc, vĩ đại nhưng cũng vô cùng khó khăn, phức tạp và lâu dài.\n\nĐó là cuộc đấu tranh giằng co quyết liệt giữa cái cũ đang suy tàn và cái mới đang nảy sinh trên mọi lĩnh vực của đời sống.\n\nNgười căn dặn: Xây dựng CNXH là một cuộc chiến đấu khổng lồ, "khó hơn đánh giặc". Bởi lẽ, đánh giặc là tiêu diệt kẻ thù hữu hình, còn xây dựng nền kinh tế - xã hội mới là đánh thắng kẻ thù vô hình (sự nghèo nàn, lạc hậu, tàn dư xã hội cũ), đòi hỏi sự kiên nhẫn, bền bỉ và sáng tạo không ngừng.',
-    position: [-2, 0, 0] as [number, number, number],
-    color: '#D4AF37'
-  },
-  {
-    id: 'blueprint',
-    name: 'Bản Đồ Nông Nghiệp',
-    desc: 'Đặc điểm lớn nhất của thời kỳ quá độ ở Việt Nam là: Từ một nước nông nghiệp lạc hậu tiến thẳng lên Chủ nghĩa Xã hội không phải kinh qua giai đoạn phát triển Tư bản chủ nghĩa.\n\nXuất phát điểm nền kinh tế thấp, hậu quả chiến tranh để lại nặng nề đòi hỏi chúng ta phải có những bước đi vững chắc, "xây đi đôi với chống", không được chủ quan, nôn nóng hay đốt cháy giai đoạn.',
-    position: [2, 0, 0] as [number, number, number],
-    color: '#8B0000'
-  }
-];
-
-const ARTIFACTS_ROOM2 = [
-  {
-    id: 'lotus',
-    name: 'Khối Pha Lê Mục Tiêu',
-    desc: 'Mục tiêu cao nhất của Chủ nghĩa Xã hội theo tư tưởng Hồ Chí Minh là nâng cao đời sống vật chất và tinh thần của nhân dân.\n\nNgười khẳng định: "Chủ nghĩa xã hội là làm sao cho nhân dân đủ ăn, đủ mặc, ngày càng sung sướng, ai nấy được đi học, ốm đau có thuốc uống, già không lao động được thì nghỉ, những phong tục tập quán không tốt dần dần được xóa bỏ".',
-    position: [-2, 0, 0] as [number, number, number],
-    color: '#00FFFF' // Cyan/Neon Blue
-  },
-  {
-    id: 'pillar',
-    name: 'Trụ Cột Đại Đoàn Kết',
-    desc: 'Động lực quan trọng và quyết định nhất để xây dựng thành công Chủ nghĩa Xã hội chính là con người, là sức mạnh đại đoàn kết toàn dân tộc.\n\nHồ Chí Minh nhấn mạnh: "Dễ mười lần không dân cũng chịu, khó trăm lần dân liệu cũng xong". Phải kết hợp sức mạnh dân tộc với sức mạnh thời đại để tạo ra sức mạnh tổng hợp.',
-    position: [2, 0, 0] as [number, number, number],
-    color: '#FFD700' // Gold
-  }
-];
-const ARTIFACTS_ROOM3 = [
-  {
-    id: 'core_star',
-    name: 'Nhân Dân Làm Chủ',
-    desc: 'Đặc trưng cốt lõi: Chủ nghĩa xã hội là chế độ do nhân dân làm chủ.\n\nNhà nước phải phát huy quyền làm chủ của nhân dân, đảm bảo dân chủ trên tất cả các lĩnh vực của đời sống xã hội. Bao nhiêu lợi ích đều vì dân, bao nhiêu quyền hạn đều của dân.',
-    color: '#ff2222', // Đỏ rực
-    type: 'core',
-    position: [0, 0, 0] // Tọa độ giả lập để fallback
-  },
-  {
-    id: 'orbiter_eco',
-    name: 'Kinh Tế Hiện Đại',
-    desc: 'Đặc trưng kinh tế: Có nền kinh tế phát triển cao dựa trên lực lượng sản xuất hiện đại và chế độ công hữu về các tư liệu sản xuất chủ yếu.\n\nSự phát triển kinh tế phải luôn đi đôi với việc nâng cao không ngừng đời sống vật chất và tinh thần của nhân dân.',
-    color: '#44aaff', // Xanh dương
-    type: 'orbiter',
-    radius: 3.5,
-    speed: 0.5,
-    offset: 0,
-    position: [0, 0, 0]
-  },
-  {
-    id: 'orbiter_culture',
-    name: 'Văn Hóa Tiên Tiến',
-    desc: 'Đặc trưng văn hóa - xã hội: Có nền văn hóa tiên tiến, đậm đà bản sắc dân tộc.\n\nCon người được giải phóng khỏi áp bức, bóc lột, bất công, làm theo năng lực, hưởng theo lao động, có cuộc sống ấm no, tự do, hạnh phúc, có điều kiện phát triển toàn diện cá nhân.',
-    color: '#aa44ff', // Tím
-    type: 'orbiter',
-    radius: 3.5,
-    speed: 0.5,
-    offset: (Math.PI * 2) / 3,
-    position: [0, 0, 0]
-  },
-  {
-    id: 'orbiter_world',
-    name: 'Hợp Tác Quốc Tế',
-    desc: 'Đặc trưng quan hệ quốc tế: Có quan hệ hữu nghị và hợp tác với nhân dân các nước trên thế giới.\n\nCách mạng Việt Nam luôn là một bộ phận của cách mạng thế giới, kết hợp sức mạnh dân tộc với sức mạnh thời đại.',
-    color: '#44ffaa', // Xanh lá
-    type: 'orbiter',
-    radius: 3.5,
-    speed: 0.5,
-    offset: (Math.PI * 4) / 3,
-    position: [0, 0, 0]
-  }
-];
-const CameraController = ({ scene, focusedArtifact }: { scene: SceneState, focusedArtifact: any }) => {
-  useFrame((state) => {
-    const t = 0.05;
-    if (scene === 'intro') {
-      state.camera.position.lerp(new THREE.Vector3(0, 0, 15), t);
-      state.camera.lookAt(0, 0, 0);
-    } else if (scene === 'hub') {
-      state.camera.position.lerp(new THREE.Vector3(0, 0, 10), t);
-      state.camera.lookAt(0, 0, 0);
-    } else if (scene === 'room1' || scene === 'room2' || scene === 'room3') {
-      if (focusedArtifact) {
-        // Lấy tọa độ động (dynamic) cho Phòng 3, tọa độ tĩnh cho Phòng 1, 2
-        const posX = focusedArtifact.dynamicPosition ? focusedArtifact.dynamicPosition.x : focusedArtifact.position[0];
-        const posY = focusedArtifact.dynamicPosition ? focusedArtifact.dynamicPosition.y : focusedArtifact.position[1];
-        const posZ = focusedArtifact.dynamicPosition ? focusedArtifact.dynamicPosition.z : focusedArtifact.position[2];
-
-        // Zoom out xa hơn một chút nếu là phòng 3 vì quy mô lớn
-        const zOffset = scene === 'room3' ? 4 : 3;
-        const target = new THREE.Vector3(posX, posY, posZ + zOffset);
-
-        state.camera.position.lerp(target, 0.08);
-        state.camera.lookAt(posX, posY, posZ);
-      } else {
-        // Góc nhìn default của Phòng 3 lùi ra xa và bay cao hơn một chút để ngắm quỹ đạo
-        const defaultTarget = scene === 'room3' ? new THREE.Vector3(0, 2, 12) : new THREE.Vector3(0, 0, 10);
-        state.camera.position.lerp(defaultTarget, t);
-        state.camera.lookAt(0, 0, 0);
-      }
-    }
-  });
-  return null;
-};
-// ==========================================
-// MŨI TÊN TƯƠNG TÁC (Ghim chặt vào nền ảnh 2D)
-// ==========================================
-const PortalArrow = ({ position, onClick, label, color }: any) => {
-  return (
-    <group position={position}>
-      {/* Thẻ Html transform giúp code HTML hòa nhập vào không gian 3D */}
-      <Html center transform zIndexRange={[100, 0]} scale={0.5}>
-        <div
-          onClick={onClick}
-          className="flex flex-col items-center justify-center cursor-pointer group"
-        >
-          {/* Mũi tên nảy lên nảy xuống */}
-          <div
-            className="animate-bounce transition-all duration-300 drop-shadow-2xl"
-            style={{ color: color, filter: `drop-shadow(0 0 10px ${color})` }}
-          >
-            <ChevronUp size={64} strokeWidth={3} />
-          </div>
-
-          {/* Nút bấm hiện ra khi Hover */}
-          <div
-            className="mt-2 px-6 py-3 rounded-full border bg-black/60 backdrop-blur-md text-white font-bold tracking-widest uppercase transition-all duration-300 opacity-0 group-hover:opacity-100 scale-90 group-hover:scale-100 whitespace-nowrap"
-            style={{ borderColor: color, boxShadow: `0 0 20px ${color}40` }}
-          >
-            {label}
-          </div>
-        </div>
-      </Html>
-    </group>
-  );
-};
-// ==========================================
-// HITBOX VÔ HÌNH (Đè lên ảnh 2D để tạo tương tác)
-// ==========================================
-const Artifact = ({ data, onFocus }: { data: any, onFocus: (d: any) => void }) => {
-  const [hovered, setHover] = useState(false);
-  useCursor(hovered);
-  const ref = useRef<THREE.Mesh>(null);
-  const innerRef = useRef<THREE.Mesh>(null);
-
-  useFrame(() => {
-    if (ref.current) {
-      ref.current.rotation.y += 0.01;
-      ref.current.rotation.x += 0.005;
-    }
-    if (innerRef.current) {
-      innerRef.current.rotation.y -= 0.015;
-
-      // Thêm hiệu ứng xoay đặc biệt cho vòng nhẫn của pillar
-      if (data.id === 'pillar') {
-        innerRef.current.rotation.x += 0.02;
-        innerRef.current.rotation.z -= 0.01;
-      }
-    }
-  });
-
-  return (
-    <group position={data.position}>
-      <Float speed={3} rotationIntensity={0.5} floatIntensity={0.5}>
-        <mesh
-          ref={ref as any}
-          onClick={(e) => { e.stopPropagation(); onFocus(data); }}
-          onPointerOver={() => setHover(true)}
-          onPointerOut={() => setHover(false)}
-        >
-          {/* Lôgic Render Mô hình tùy theo ID */}
-          {data.id === 'gear' ? (
-            <torusGeometry args={[0.8, 0.2, 16, 100]} />
-          ) : data.id === 'blueprint' ? (
-            <icosahedronGeometry args={[0.9, 1]} />
-          ) : data.id === 'lotus' ? (
-            <octahedronGeometry args={[0.8, 0]} />
-          ) : data.id === 'pillar' ? (
-            <cylinderGeometry args={[0.4, 0.6, 1.8, 32]} />
-          ) : null}
-
-          <meshStandardMaterial
-            color="#fff"
-            emissive={data.color}
-            emissiveIntensity={hovered ? 2 : 0.8}
-            wireframe={data.id === 'blueprint' || data.id === 'pillar'}
-            transparent
-            opacity={0.9}
-          />
-        </mesh>
-
-        {/* Lõi phát sáng / Hiệu ứng bên trong */}
-        {data.id === 'blueprint' && (
-          <mesh ref={innerRef as any}>
-            <icosahedronGeometry args={[0.5, 0]} />
-            <meshBasicMaterial color={data.color} wireframe />
-          </mesh>
-        )}
-        {data.id === 'lotus' && (
-          <mesh ref={innerRef as any}>
-            <octahedronGeometry args={[0.4, 0]} />
-            <meshBasicMaterial color="#ffffff" wireframe />
-          </mesh>
-        )}
-        {data.id === 'pillar' && (
-          <mesh ref={innerRef as any}>
-            <torusGeometry args={[1, 0.02, 32, 100]} />
-            <meshBasicMaterial color={data.color} />
-          </mesh>
-        )}
-      </Float>
-
-      <Text position={[0, -2.2, 0]} fontSize={0.2} color="white" fillOpacity={hovered ? 1 : 0.5}>
-        {data.name}
-      </Text>
-    </group>
-  );
-};
-// ==========================================
-// CƠ CHẾ QUỸ ĐẠO PHÒNG 3 (ORBITAL MECHANISM)
-// ==========================================
-const OrbitalArtifact = ({ data, onFocus, isPaused }: { data: any, onFocus: (d: any) => void, isPaused: boolean }) => {
-  const [hovered, setHover] = useState(false);
-  useCursor(hovered);
-  const groupRef = useRef<THREE.Group>(null);
-  const meshRef = useRef<THREE.Mesh>(null);
-  const ringRef = useRef<THREE.Mesh>(null);
-
-  // Ref để lưu trữ thời gian tích lũy độc lập (Để Pause được)
-  const timeRef = useRef(0);
-
-  useFrame((state, delta) => {
-    // Nếu có hiện vật đang được focus, dừng thời gian bay quỹ đạo
-    if (!isPaused) {
-      timeRef.current += delta;
-    }
-
-    if (data.type === 'core') {
-      // Hiệu ứng Lõi: Đập nhịp (Pulsating)
-      const scale = 1 + Math.sin(timeRef.current * 3) * 0.08;
-      if (groupRef.current) groupRef.current.scale.set(scale, scale, scale);
-      if (meshRef.current) meshRef.current.rotation.y += 0.005;
-      if (ringRef.current) {
-        ringRef.current.rotation.x += 0.01;
-        ringRef.current.rotation.y += 0.02;
-      }
-    } else {
-      // Hiệu ứng Vệ tinh: Bay quanh quỹ đạo + Nhấp nhô
-      const angle = timeRef.current * data.speed + data.offset;
-      const x = Math.cos(angle) * data.radius;
-      const z = Math.sin(angle) * data.radius;
-      const y = Math.sin(timeRef.current * 1.5 + data.offset) * 0.4;
-
-      if (groupRef.current) groupRef.current.position.set(x, y, z);
-      if (meshRef.current) {
-        meshRef.current.rotation.x += 0.02;
-        meshRef.current.rotation.y += 0.02;
-      }
-      if (ringRef.current) {
-        ringRef.current.rotation.x -= 0.03;
-      }
-    }
-  });
-
-  const handleClick = (e: any) => {
-    e.stopPropagation();
-    // Bắt lấy tọa độ không gian thực ngay tại khoảnh khắc bị Click để Camera bay tới
-    const worldPos = new THREE.Vector3();
-    if (groupRef.current) {
-      groupRef.current.getWorldPosition(worldPos);
-      onFocus({ ...data, dynamicPosition: worldPos });
-    }
-  };
-
-  return (
-    <group ref={groupRef} position={data.type === 'core' ? [0, 0, 0] : [data.radius, 0, 0]}>
-      <mesh
-        ref={meshRef as any}
-        onClick={handleClick}
-        onPointerOver={() => setHover(true)}
-        onPointerOut={() => setHover(false)}
-      >
-        {/* Hình khối thay đổi dựa trên type */}
-        {data.type === 'core' ? (
-          <dodecahedronGeometry args={[1.2, 0]} />
-        ) : (
-          <sphereGeometry args={[0.5, 32, 32]} />
-        )}
-        <meshStandardMaterial
-          color="#fff"
-          emissive={data.color}
-          emissiveIntensity={hovered ? 3 : 1.2}
-          transparent
-          opacity={data.type === 'core' ? 0.7 : 0.9}
-          wireframe={data.type === 'core'}
-        />
-      </mesh>
-
-      {/* Lõi đặc bên trong Core */}
-      {data.type === 'core' && (
-        <mesh ref={ringRef as any}>
-          <icosahedronGeometry args={[0.8, 0]} />
-          <meshStandardMaterial color={data.color} emissive={data.color} emissiveIntensity={1} />
-        </mesh>
-      )}
-
-      {/* Vòng nhẫn bao quanh Vệ Tinh */}
-      {data.type === 'orbiter' && (
-        <mesh ref={ringRef as any} rotation={[Math.PI / 2, 0, 0]}>
-          <torusGeometry args={[0.9, 0.02, 16, 50]} />
-          <meshBasicMaterial color={data.color} />
-        </mesh>
-      )}
-
-      <Text position={[0, data.type === 'core' ? -2.2 : -1.5, 0]} fontSize={0.25} color="white" fillOpacity={hovered ? 1 : 0.5}>
-        {data.name}
-      </Text>
-    </group>
-  );
-}
-const InteractiveLibrary = () => {
-  const [scene, setScene] = useState<SceneState>('intro');
-  const [focusedArtifact, setFocusedArtifact] = useState<any>(null);
-
-  return (
-    <div className="w-full h-full bg-[#050505] text-white overflow-hidden font-sans select-none relative rounded-b-[2rem]">
-
-      {/* INTRO SCREEN */}
-      <AnimatePresence>
-        {scene === 'intro' && (
-          <motion.div
-            className="absolute inset-0 z-50 flex flex-col items-center justify-center bg-black/60 backdrop-blur-md"
-            exit={{ opacity: 0, scale: 1.1, filter: "blur(10px)" }}
-            transition={{ duration: 1.5, ease: "easeInOut" }}
-          >
-            <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5, duration: 2 }} className="text-gray-300 uppercase tracking-[0.5em] text-xs md:text-sm mb-6 font-medium">
-              Tri thức là ánh sáng của dân tộc
-            </motion.p>
-            <motion.h1 initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 1.5, duration: 2 }} className="text-4xl md:text-6xl lg:text-7xl font-serif text-[#D4AF37] mb-12 text-center leading-tight drop-shadow-[0_0_30px_rgba(212,175,55,0.6)]">
-              Bảo Tàng Tri Thức<br />Chủ Nghĩa Xã Hội
-            </motion.h1>
-            <motion.button initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 3, duration: 1 }} whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(139,0,0,0.8)" }} onClick={() => setScene('hub')} className="px-8 py-4 bg-gradient-to-r from-[#8B0000] to-red-950 border border-[#D4AF37]/50 uppercase tracking-widest text-sm font-bold flex items-center gap-3 backdrop-blur-md rounded-full text-white shadow-2xl">
-              Bước vào không gian <ChevronRight className="w-5 h-5" />
-            </motion.button>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* HOLOGRAM PANEL (Phòng 1) */}
-      <AnimatePresence>
-        {focusedArtifact && (
-          <motion.div initial={{ opacity: 0, x: 100 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 50 }} className="absolute right-8 top-1/4 w-[400px] z-40 bg-black/60 backdrop-blur-2xl border-l-4 border-y border-r border-white/10 p-8 rounded-r-2xl shadow-[0_0_50px_rgba(0,0,0,0.8)]" style={{ borderLeftColor: focusedArtifact.color }}>
-            <button onClick={() => setFocusedArtifact(null)} className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors">
-              <X className="w-6 h-6" />
-            </button>
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-3 h-3 rounded-full animate-pulse" style={{ backgroundColor: focusedArtifact.color }}></div>
-              <p className="text-xs uppercase tracking-[0.2em] text-gray-400 font-bold">Hồ sơ hiện vật</p>
-            </div>
-            <h3 className="text-3xl font-serif font-bold mb-6 text-white leading-tight">{focusedArtifact.name}</h3>
-            {/* Thêm max-h và overflow-y-auto để cuộn mượt mà */}
-            <div className="prose prose-invert max-h-[45vh] overflow-y-auto custom-scrollbar pr-4">
-              <p className="text-gray-300 leading-relaxed whitespace-pre-line text-[15px] md:text-base font-light text-justify">
-                {focusedArtifact.desc}
-              </p>
-            </div>          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* NÚT BACK CHUYỂN CẢNH (Đã được làm nổi bật) */}
-      <AnimatePresence>
-        {(scene !== 'intro' && scene !== 'hub') && (
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -20 }}
-            className="absolute top-8 left-8 z-50"
-          >
-            <button
-              onClick={() => { setFocusedArtifact(null); setScene('hub'); }}
-              className="group flex items-center gap-3 px-6 py-3 bg-black/60 backdrop-blur-xl border border-[#D4AF37]/50 rounded-full text-sm font-bold uppercase tracking-widest text-[#D4AF37] hover:bg-[#D4AF37] hover:text-black transition-all duration-300 shadow-[0_0_20px_rgba(212,175,55,0.2)]"
-            >
-              <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
-              Trở về Sảnh Chính
-            </button>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      <Canvas shadows dpr={[1, 2]} gl={{ antialias: false }} camera={{ position: [0, 0, 10], fov: 45 }}>
-        <CameraController scene={scene} focusedArtifact={focusedArtifact} />
-
-        <color attach="background" args={['#020202']} />
-        <ambientLight intensity={1} />
-        <Sparkles count={150} scale={[30, 20, 10]} size={2} speed={0.2} opacity={0.3} color="#D4AF37" />
-
-        <Suspense fallback={null}>
-          {/* ẢNH BACKGROUND (Ép khung 16:9 để không bị cắt xén) */}
-          <Image
-            url="/images/HostRoom.png"
-            scale={[32, 18]} // Tỉ lệ 16:9 chuẩn
-            position={[0, 0, -5]}
-            transparent
-            opacity={scene === 'hub' ? 1 : 0.15} // Tối đi khi vào phòng
-            toneMapped={false}
-          />
-
-          {scene === 'hub' && (
-            <group position={[0, 0, -4.9]}>
-              <PortalArrow
-                position={[-4.9, -4.5, 0]}
-                color="#ff4444"
-                label="Vào Phòng 1"
-                onClick={() => setScene('room1')}
-              />
-
-              <PortalArrow
-                position={[0, -4.5, 0]}
-                color="#D4AF37"
-                label="Vào Phòng 2"
-                onClick={() => setScene('room2')} // Kích hoạt chuyển cảnh
-              />
-
-              <PortalArrow
-                position={[4.9, -4.5, 0]}
-                color="#44aaff"
-                label="Vào Phòng 3"
-                onClick={() => setScene('room3')} // Kích hoạt phòng 3 thay vì toast info
-              />
-            </group>
-          )}
-        </Suspense>
-
-        {/* Hiển thị Phòng 1 */}
-        {scene === 'room1' && (
-          <group>
-            {ARTIFACTS_ROOM1.map((art) => <Artifact key={art.id} data={art} onFocus={setFocusedArtifact} />)}
-            <gridHelper args={[100, 100, '#D4AF37', '#222']} position={[0, -2, 0]} />
-          </group>
-        )}
-
-        {/* Hiển thị Phòng 2 */}
-        {scene === 'room2' && (
-          <group>
-            {ARTIFACTS_ROOM2.map((art) => <Artifact key={art.id} data={art} onFocus={setFocusedArtifact} />)}
-            <gridHelper args={[100, 100, '#00FFFF', '#113333']} position={[0, -2, 0]} />
-          </group>
-        )}
-        {/* =======================
-            RENDER PHÒNG 3 
-        ======================== */}
-        {scene === 'room3' && (
-          <group position={[0, -0.5, 0]}>
-            {/* Lưới ảo đặc trưng cho không gian Vũ trụ mạng */}
-            <gridHelper args={[100, 100, '#44ffaa', '#052211']} position={[0, -3, 0]} />
-
-            {/* Vòng chỉ dẫn quỹ đạo ảo */}
-            <mesh rotation={[Math.PI / 2, 0, 0]} position={[0, 0, 0]}>
-              <torusGeometry args={[3.5, 0.01, 16, 100]} />
-              <meshBasicMaterial color="#ffffff" transparent opacity={0.15} />
-            </mesh>
-
-            {/* Khởi tạo hệ thống Vệ tinh */}
-            {ARTIFACTS_ROOM3.map((art) => (
-              <OrbitalArtifact
-                key={art.id}
-                data={art}
-                onFocus={setFocusedArtifact}
-                isPaused={!!focusedArtifact} // Truyền cờ Pause khi có object đang xem
-              />
-            ))}
-          </group>
-        )}
-
-        <EffectComposer>
-          <Bloom luminanceThreshold={0.5} mipmapBlur intensity={0.5} radius={0.8} />
-          <Noise opacity={0.03} />
-          <Vignette eskil={false} offset={0.1} darkness={1.1} />
-        </EffectComposer>
-      </Canvas>
-    </div>
-  );
-};
-
-// ==========================================
 // MAIN APP COMPONENT (2D & Logic)
 // ==========================================
 // ==========================================
 // MAIN APP COMPONENT (2D & Logic) - ĐÃ CẬP NHẬT LIGHT/DARK MODE
 // ==========================================
 export default function App() {
-  const [activeTab, setActiveTab] = useState<'main' | 'library'>('main');
   const [isUpdatingProfile, setIsUpdatingProfile] = useState(false);
   const [user, setUser] = useState<FirebaseUser | null>(null);
   const [profile, setProfile] = useState<UserProfile | null>(null);
@@ -676,9 +128,6 @@ export default function App() {
   const [isAuthSubmitting, setIsAuthSubmitting] = useState(false);
   const [newDisplayName, setNewDisplayName] = useState("");
   const [newPhotoURL, setNewPhotoURL] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState<Category | null>(null);
-  const [isCloudChatEnabled, setIsCloudChatEnabled] = useState(true);
-  const experienceUrl = typeof window !== "undefined" ? window.location.href : "https://example.com";
   const qrCodeUrl = `..\\public\\images\\1. QUY LUẬT LƯỢNG - CHẤT...png`; // Rút gọn để hiển thị
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -750,7 +199,6 @@ export default function App() {
 
       if (!currentUser) {
         setProfile(null);
-        setIsCloudChatEnabled(false);
         setMessages(getDefaultWelcomeMessage());
         return;
       }
@@ -758,7 +206,6 @@ export default function App() {
       const localProfile = loadLocalProfile(currentUser);
       setProfile(localProfile);
       saveLocalProfile(currentUser.uid, localProfile);
-      setIsCloudChatEnabled(false);
       setMessages(loadLocalMessages(currentUser.uid));
     });
     return () => unsubscribe();
@@ -944,28 +391,10 @@ export default function App() {
 
           <div className="hidden md:flex items-center gap-8">
             <div className="flex items-center gap-6 mr-4 border-r border-gray-300 dark:border-white/20 pr-8">
-              <button
-                onClick={() => setActiveTab('main')}
-                className={cn("text-sm font-bold uppercase tracking-wider transition-colors px-3 py-2 rounded-lg", activeTab === 'main' ? "bg-gray-100 dark:bg-white/10 text-[#8B0000] dark:text-[#D4AF37]" : "text-gray-600 dark:text-gray-300 hover:text-[#8B0000] dark:hover:text-[#D4AF37]")}
-              >
-                Trang Chủ 2D
-              </button>
-              <button
-                onClick={() => setActiveTab('library')}
-                className={cn("text-sm font-bold uppercase tracking-wider transition-colors px-3 py-2 rounded-lg flex items-center gap-2", activeTab === 'library' ? "bg-gray-100 dark:bg-white/10 text-[#8B0000] dark:text-[#D4AF37]" : "text-gray-600 dark:text-gray-300 hover:text-[#8B0000] dark:hover:text-[#D4AF37]")}
-              >
-                <Layers className="w-4 h-4" /> Thư Viện 3D
-              </button>
-
-              {activeTab === 'main' && (
-                <>
-                  <span className="text-gray-300 dark:text-white/20 mx-2">|</span>
-                  <a href="#hero" className="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-[#8B0000] dark:hover:text-[#D4AF37] transition-colors uppercase tracking-wider">Khai mạc</a>
-                  <a href="#session10" className="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-[#8B0000] dark:hover:text-[#D4AF37] transition-colors uppercase tracking-wider">Phòng 10</a>
-                  <a href="#session11" className="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-[#8B0000] dark:hover:text-[#D4AF37] transition-colors uppercase tracking-wider">Phòng 11</a>
-                  <a href="#flipbook" className="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-[#8B0000] dark:hover:text-[#D4AF37] transition-colors uppercase tracking-wider">Tư liệu</a>
-                </>
-              )}
+              <a href="#hero" className="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-[#8B0000] dark:hover:text-[#D4AF37] transition-colors uppercase tracking-wider">Khai mạc</a>
+              <a href="#session10" className="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-[#8B0000] dark:hover:text-[#D4AF37] transition-colors uppercase tracking-wider">Phòng 10</a>
+              <a href="#session11" className="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-[#8B0000] dark:hover:text-[#D4AF37] transition-colors uppercase tracking-wider">Phòng 11</a>
+              <a href="#strategic-map" className="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-[#8B0000] dark:hover:text-[#D4AF37] transition-colors uppercase tracking-wider">Tư liệu</a>
             </div>
 
             <div className="flex items-center gap-3">
@@ -1025,101 +454,96 @@ export default function App() {
       </nav>
 
       {/* ==========================================
-          RENDER NỘI DUNG THEO TAB
+          RENDER NỘI DUNG 2D
       ========================================== */}
-      {activeTab === 'main' ? (
-        <>
-          {/* HIỆU ỨNG MỞ MÀN CHẠY ĐỘC LẬP TẠI ĐÂY */}
-          <CinematicReveal />
+      {/* HIỆU ỨNG MỞ MÀN CHẠY ĐỘC LẬP TẠI ĐÂY */}
+      <CinematicReveal />
 
-          <main className="flex-1 overflow-x-clip bg-gray-50 dark:bg-[#0A0A0A] text-gray-800 dark:text-gray-200 selection:bg-[#D4AF37] selection:text-black transition-colors duration-300">
+      <main className="flex-1 overflow-x-clip bg-gray-50 dark:bg-[#0A0A0A] text-gray-800 dark:text-gray-200 selection:bg-[#D4AF37] selection:text-black transition-colors duration-300">
 
-            {/* TẠO KHOẢNG TRẮNG ĐỂ CUỘN (SCROLL SPACER) THEO Ý TƯỞNG CỦA BẠN */}
-            {/* Chiều cao 1000px này phải khớp với con số 1000 trong file CinematicReveal.tsx */}
-            <div className="w-full h-[850px] pointer-events-none" aria-hidden="true"></div>
+        {/* TẠO KHOẢNG TRẮNG ĐỂ CUỘN (SCROLL SPACER) THEO Ý TƯỞNG CỦA BẠN */}
+        {/* Chiều cao 1000px này phải khớp với con số 1000 trong file CinematicReveal.tsx */}
+        <div className="w-full h-[850px] pointer-events-none" aria-hidden="true"></div>
 
-            {/* Layer Ánh sáng Nền */}
-            <div className="fixed inset-0 z-0 pointer-events-none">
-              <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-[#8B0000] rounded-full blur-[180px] opacity-10 dark:opacity-20"></div>
-              <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-[#D4AF37] rounded-full blur-[150px] opacity-[0.04] dark:opacity-[0.08]"></div>
-              <div className="absolute inset-0 bg-[linear-gradient(rgba(0,0,0,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,0.03)_1px,transparent_1px)] dark:bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:64px_64px] opacity-20"></div>
-            </div>
+        {/* Layer Ánh sáng Nền */}
+        <div className="fixed inset-0 z-0 pointer-events-none">
+          <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-[#8B0000] rounded-full blur-[180px] opacity-10 dark:opacity-20"></div>
+          <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-[#D4AF37] rounded-full blur-[150px] opacity-[0.04] dark:opacity-[0.08]"></div>
+          <div className="absolute inset-0 bg-[linear-gradient(rgba(0,0,0,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,0.03)_1px,transparent_1px)] dark:bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:64px_64px] opacity-20"></div>
+        </div>
 
-            {/* ==========================================
+        {/* ==========================================
                 A. HERO SECTION 
             ========================================== */}
-            <section id="hero" className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden z-10">
-              {/* Ảnh nền */}
-              <div
-                className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat opacity-60 dark:opacity-50"
-                style={{ backgroundImage: `url('/images/BG1.jpg')` }}
-              ></div>
+        <section id="hero" className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden z-10">
+          {/* Ảnh nền */}
+          <div
+            className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat opacity-60 dark:opacity-50"
+            style={{ backgroundImage: `url('/images/BG1.jpg')` }}
+          ></div>
 
-              {/* Lớp phủ gradient sáng/tối */}
-              <div className="absolute inset-0 bg-gradient-to-b from-white/20 via-white/60 to-gray-50 dark:from-black/50 dark:via-black/40 dark:to-black/80 z-0"></div>
+          {/* Lớp phủ gradient sáng/tối */}
+          <div className="absolute inset-0 bg-gradient-to-b from-white/20 via-white/60 to-gray-50 dark:from-black/50 dark:via-black/40 dark:to-black/80 z-0"></div>
 
-              <PhilosophicalParticles density={30} className="z-0 opacity-40 text-[#8B0000] dark:text-[#D4AF37]" />
+          <PhilosophicalParticles density={30} className="z-0 opacity-40 text-[#8B0000] dark:text-[#D4AF37]" />
 
-              <div className="container mx-auto px-4 relative z-10">
-                {/* TOÀN BỘ NỘI DUNG HERO SECTION GIỮ NGUYÊN CỦA BẠN */}
-                <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1.2, ease: "easeOut" }} className="max-w-5xl mx-auto text-center">
-                  <motion.div initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ delay: 0.3, duration: 1 }} className="mb-8">
-                    <Badge variant="outline" className="px-6 py-2 border-[#8B0000]/50 dark:border-[#D4AF37]/50 text-[#8B0000] dark:text-[#D4AF37] bg-[#8B0000]/10 dark:bg-[#D4AF37]/10 font-medium tracking-[0.2em] uppercase text-sm backdrop-blur-md">
-                      Không gian triển lãm chuyên đề
-                    </Badge>
-                  </motion.div>
+          <div className="container mx-auto px-4 relative z-10">
+            {/* TOÀN BỘ NỘI DUNG HERO SECTION GIỮ NGUYÊN CỦA BẠN */}
+            <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1.2, ease: "easeOut" }} className="max-w-5xl mx-auto text-center">
+              <motion.div initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ delay: 0.3, duration: 1 }} className="mb-8">
+                <Badge variant="outline" className="px-6 py-2 border-[#8B0000]/50 dark:border-[#D4AF37]/50 text-[#8B0000] dark:text-[#D4AF37] bg-[#8B0000]/10 dark:bg-[#D4AF37]/10 font-medium tracking-[0.2em] uppercase text-sm backdrop-blur-md">
+                  Không gian triển lãm chuyên đề
+                </Badge>
+              </motion.div>
 
-                  <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif font-bold uppercase tracking-wide leading-tight mb-6 drop-shadow-2xl text-gray-900 dark:text-white">
-                    Tư Tưởng <span className="text-[#8B0000] dark:text-[#D4AF37] relative inline-block">
-                      Hồ Chí Minh
-                      <span className="absolute -bottom-2 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-[#8B0000] dark:via-[#D4AF37] to-transparent"></span>
-                    </span>
-                    <br />
-                    <span className="text-4xl md:text-6xl text-gray-600 dark:text-gray-300 mt-4 block tracking-normal">Về Chủ Nghĩa Xã Hội</span>
-                  </h1>
+              <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif font-bold uppercase tracking-wide leading-tight mb-6 drop-shadow-2xl text-gray-900 dark:text-white">
+                Tư Tưởng <span className="text-[#8B0000] dark:text-[#D4AF37] relative inline-block">
+                  Hồ Chí Minh
+                  <span className="absolute -bottom-2 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-[#8B0000] dark:via-[#D4AF37] to-transparent"></span>
+                </span>
+                <br />
+                <span className="text-4xl md:text-6xl text-gray-600 dark:text-gray-300 mt-4 block tracking-normal">Về Chủ Nghĩa Xã Hội</span>
+              </h1>
 
-                  <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1, duration: 1 }} className="text-xl md:text-3xl text-gray-600 dark:text-gray-400 font-light italic font-serif mb-12">
-                    “Độc lập dân tộc gắn liền với chủ nghĩa xã hội”
-                  </motion.p>
+              <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1, duration: 1 }} className="text-xl md:text-3xl text-gray-600 dark:text-gray-400 font-light italic font-serif mb-12">
+                “Độc lập dân tộc gắn liền với chủ nghĩa xã hội”
+              </motion.p>
 
-                  <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="inline-block">
-                    <a href="#session10" className="group relative inline-flex items-center justify-center px-10 py-4 font-bold text-white transition-all duration-300 bg-gradient-to-r from-[#8B0000] to-red-900 border border-red-900/50 dark:border-[#D4AF37]/50 rounded-full hover:shadow-[0_0_30px_rgba(139,0,0,0.3)] dark:hover:shadow-[0_0_30px_rgba(212,175,55,0.3)] overflow-hidden">
-                      <span className="absolute inset-0 w-full h-full -mt-1 rounded-lg opacity-30 bg-gradient-to-b from-transparent via-transparent to-black"></span>
-                      <span className="relative uppercase tracking-widest text-sm">Khám phá triển lãm</span>
-                      <ChevronRight className="relative ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                    </a>
-                  </motion.div>
-                </motion.div>
-              </div>
-            </section>
+              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="inline-block">
+                <a href="#session10" className="group relative inline-flex items-center justify-center px-10 py-4 font-bold text-white transition-all duration-300 bg-gradient-to-r from-[#8B0000] to-red-900 border border-red-900/50 dark:border-[#D4AF37]/50 rounded-full hover:shadow-[0_0_30px_rgba(139,0,0,0.3)] dark:hover:shadow-[0_0_30px_rgba(212,175,55,0.3)] overflow-hidden">
+                  <span className="absolute inset-0 w-full h-full -mt-1 rounded-lg opacity-30 bg-gradient-to-b from-transparent via-transparent to-black"></span>
+                  <span className="relative uppercase tracking-widest text-sm">Khám phá triển lãm</span>
+                  <ChevronRight className="relative ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                </a>
+              </motion.div>
+            </motion.div>
+          </div>
+        </section>
 
-            {/* ==========================================
+        {/* ==========================================
                 B. SESSION 10 
             ========================================== */}
-            <Session10Horizontal />
+        <Session10Horizontal />
 
-            {/* ==========================================
+        {/* ==========================================
                 C. SESSION 11
             ========================================== */}
-            <Session11Horizontal />
-            {/* ==========================================
-                D. FLIPBOOK 
+        <Session11Horizontal />
+         {/* ==========================================
+                D. SESSION 12
             ========================================== */}
-            <section id="strategic-map">
-              <StrategicStoryMap />
-            </section>
+        <Session12CommandCenter />
+        {/* ==========================================
+                E. FLIPBOOK 
+            ========================================== */}
+        <section id="strategic-map">
+          <StrategicStoryMap />
+        </section>
 
-          </main>
+      </main>
 
-          {/* FOOTER */}
-          <Footer />
-        </>
-
-      ) : (
-        <main className="fixed top-20 left-0 right-0 bottom-0 overflow-hidden bg-[#050505]">
-          <InteractiveLibrary />
-        </main>
-      )}
+      {/* FOOTER */}
+      <Footer />
 
       {/* ==========================================
           CHATBOT & DIALOGS

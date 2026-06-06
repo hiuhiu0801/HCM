@@ -10,85 +10,179 @@ import {
 
 const session11Sections = [
     {
-        id: "core-idea",
+        id: "relationship-core",
         type: "content",
         number: "01",
-        label: "Tư tưởng cốt lõi",
-        title: "Độc Lập Dân Tộc Gắn Liền Với Chủ Nghĩa Xã Hội",
-        subtitle: "Sợi chỉ đỏ xuyên suốt trong đường lối cách mạng Việt Nam",
+        label: "Luận đề trung tâm",
+        title: "Độc lập dân tộc gắn liền với chủ nghĩa xã hội",
+        subtitle:
+            "Đây là mối quan hệ hai chiều: độc lập là điểm xuất phát, còn CNXH là con đường bảo đảm độc lập bền vững.",
         icon: Flag,
         layout: "contentLarge",
         backgroundImage: "/images/Red.png",
         video: "/videos/DoNat.mp4",
         accent: "red",
+
+        thesis:
+            "Trong tư tưởng Hồ Chí Minh, độc lập dân tộc và chủ nghĩa xã hội không tách rời nhau. Độc lập dân tộc mở đường cho nhân dân tự quyết tương lai; còn chủ nghĩa xã hội tạo nền tảng để nền độc lập ấy có nội dung thực chất, bền vững và hướng tới hạnh phúc của nhân dân.",
+
+        argument:
+            "Nếu chỉ giành độc lập chính trị mà nhân dân vẫn nghèo đói, không có tự do, dân chủ và đời sống tốt đẹp, thì độc lập chưa đạt đến ý nghĩa đầy đủ. Vì vậy, độc lập dân tộc phải gắn với mục tiêu xây dựng một xã hội mới — nơi nhân dân thực sự làm chủ và được hưởng thành quả phát triển.",
+
         content: [
-            "Độc lập dân tộc là tiền đề, là điều kiện tiên quyết để xây dựng chủ nghĩa xã hội.",
-            "Chủ nghĩa xã hội là cơ sở bảo đảm vững chắc cho độc lập dân tộc.",
-            "Hai yếu tố này gắn bó chặt chẽ, bổ sung và bảo vệ lẫn nhau.",
+            "Độc lập dân tộc là mục tiêu trước hết của cách mạng Việt Nam.",
+            "Chủ nghĩa xã hội là phương hướng phát triển sau khi giành độc lập.",
+            "Hai yếu tố này gắn bó với nhau: độc lập mở đường cho CNXH, còn CNXH củng cố và bảo vệ độc lập.",
         ],
-        keywords: ["Độc lập", "Chủ quyền", "CNXH", "Sợi chỉ đỏ"],
+
         quote:
-            "Độc lập không chỉ là thoát khỏi áp bức, mà còn là quyền tự quyết con đường phát triển của dân tộc.",
+            "Nếu nước độc lập mà dân không hưởng hạnh phúc tự do, thì độc lập cũng chẳng có nghĩa lý gì.",
+
+        quoteSource:
+            "Hồ Chí Minh, Thư gửi Ủy ban nhân dân các kỳ, tỉnh, huyện và làng, đăng Báo Cứu quốc, ngày 17/10/1945.",
+
+        sourceNote:
+            "Căn cứ từ mục III chương 3 giáo trình Tư tưởng Hồ Chí Minh và tư tưởng Hồ Chí Minh về độc lập dân tộc gắn liền với chủ nghĩa xã hội.",
+
+        references: [
+            "Giáo trình Tư tưởng Hồ Chí Minh, Chương 3, Mục III",
+            "Hồ Chí Minh, Thư gửi Ủy ban nhân dân các kỳ, tỉnh, huyện và làng, 1945",
+            "Cổng thông tin Hồ Chí Minh: Tư tưởng Hồ Chí Minh về độc lập dân tộc gắn liền với chủ nghĩa xã hội",
+        ],
+
+        keywords: ["Luận đề trung tâm", "Độc lập", "CNXH", "Hạnh phúc nhân dân"],
     },
+
     {
-        id: "independence-video",
-        type: "videoFocus",
+        id: "independence-premise",
+        type: "content",
         number: "02",
-        label: "Minh họa lịch sử",
-        title: "Độc Lập Là Điểm Khởi Đầu",
-        subtitle: "Phát triển là cách giữ vững độc lập ấy",
+        label: "Mục 3.3.1",
+        title: "Độc lập dân tộc là cơ sở, tiền đề để tiến lên CNXH",
+        subtitle:
+            "Không có độc lập dân tộc thì không có quyền tự quyết, không có điều kiện chính trị để xây dựng xã hội mới.",
         icon: Landmark,
-        layout: "videoLarge",
+        layout: "contentLarge",
         backgroundImage: "/images/white.png",
         video: "/videos/Video2.mp4",
         accent: "amber",
+
+        thesis:
+            "Giải phóng dân tộc, giành độc lập là mục tiêu đầu tiên của cách mạng Việt Nam. Đó là điều kiện mở đường để nhân dân có thể lựa chọn con đường phát triển của mình, trong đó mục tiêu tiếp theo là xây dựng chủ nghĩa xã hội.",
+
+        argument:
+            "Khi một dân tộc còn bị áp bức, lệ thuộc hoặc mất quyền tự quyết, dân tộc đó không thể chủ động xây dựng chế độ xã hội mới. Vì vậy, độc lập dân tộc là tiền đề chính trị, pháp lý và tinh thần để tiến lên CNXH.",
+
         content: [
-            "Một dân tộc chỉ có thể tự lựa chọn tương lai khi có độc lập.",
-            "Từ độc lập, nhân dân mới có điều kiện xây dựng cuộc sống tự do, ấm no và hạnh phúc.",
+            "Độc lập dân tộc là điều kiện đầu tiên để nhân dân tự quyết con đường phát triển.",
+            "Trong Chánh cương vắn tắt năm 1930, Nguyễn Ái Quốc xác định đường lối cách mạng Việt Nam tiến tới xã hội cộng sản.",
+            "Độc lập theo Hồ Chí Minh không chỉ là thoát khỏi áp bức bên ngoài, mà còn phải gắn với dân chủ, tự do và đời sống ấm no của nhân dân.",
         ],
-        keywords: ["Bình minh", "Lá cờ", "Con đường", "Hy vọng"],
-        quote: "Độc lập để phát triển. Phát triển để giữ vững độc lập.",
+
+        quote:
+            "Làm tư sản dân quyền cách mạng và thổ địa cách mạng để đi tới xã hội cộng sản.",
+
+        quoteSource:
+            "Chánh cương vắn tắt của Đảng, do Nguyễn Ái Quốc soạn thảo, tháng 2/1930.",
+
+        sourceNote:
+            "Luận điểm này chứng minh chiều thứ nhất của mối quan hệ: độc lập dân tộc là cơ sở, tiền đề để đi lên CNXH.",
+
+        references: [
+            "Giáo trình Tư tưởng Hồ Chí Minh, Chương 3, Mục 3.3.1",
+            "Chánh cương vắn tắt của Đảng, 1930",
+            "Quân đội nhân dân: Chánh cương đầu tiên của Đảng ta",
+        ],
+
+        keywords: ["Tiền đề", "Tự quyết", "Chánh cương 1930", "Giải phóng dân tộc"],
     },
+
     {
-        id: "modern-application",
+        id: "socialism-guarantee",
         type: "content",
         number: "03",
-        label: "Vận dụng hiện nay",
-        title: "Vận Dụng Trong Giai Đoạn Hiện Nay",
-        subtitle: "Hội nhập, phát triển và bảo vệ Tổ quốc",
-        icon: Globe2,
+        label: "Mục 3.3.2",
+        title: "CNXH là điều kiện bảo đảm nền độc lập dân tộc vững chắc",
+        subtitle:
+            "Độc lập chỉ thật sự bền vững khi đất nước có thực lực mạnh và nhân dân được giải phóng khỏi áp bức, bóc lột.",
+        icon: ShieldCheck,
         layout: "contentLarge",
         backgroundImage: "/images/green.png",
         video: "/videos/VanDung.mp4",
         accent: "green",
+
+        thesis:
+            "Theo tư tưởng Hồ Chí Minh, CNXH không chỉ là mục tiêu sau độc lập, mà còn là điều kiện để bảo vệ độc lập dân tộc một cách triệt để. Một quốc gia độc lập nhưng yếu về kinh tế, chính trị, quốc phòng và đời sống nhân dân thì nền độc lập ấy dễ bị đe dọa.",
+
+        argument:
+            "CNXH hướng tới xây dựng thực lực quốc gia trên nhiều mặt: kinh tế phát triển, chính trị ổn định, quốc phòng vững mạnh, xã hội công bằng và nhân dân đoàn kết. Những yếu tố đó tạo thành nền tảng vật chất và tinh thần để bảo vệ độc lập dân tộc lâu dài.",
+
         content: [
-            "Phát huy sức mạnh đại đoàn kết toàn dân tộc.",
-            "Kết hợp sức mạnh dân tộc với sức mạnh thời đại.",
-            "Chủ động hội nhập quốc tế nhưng vẫn giữ vững độc lập, chủ quyền.",
-            "Phát triển đất nước gắn với nâng cao đời sống vật chất và tinh thần của nhân dân.",
+            "CNXH tạo cơ sở để xây dựng một đất nước độc lập, tự chủ và có năng lực tự bảo vệ.",
+            "Phát triển kinh tế, chính trị, văn hóa, xã hội và quốc phòng là cách làm cho độc lập có nền tảng bền vững.",
+            "Xóa bỏ áp bức, bóc lột và bất công giúp củng cố khối đoàn kết toàn dân — sức mạnh căn bản để giữ nước.",
         ],
-        keywords: ["Đại đoàn kết", "Hội nhập", "Phát triển", "Chủ quyền"],
+
         quote:
-            "Đây không chỉ là bài học lịch sử, mà còn là định hướng phát triển đất nước trong hiện tại và tương lai.",
+            "Không có gì quý hơn độc lập, tự do.",
+
+        quoteSource:
+            "Hồ Chí Minh, Lời kêu gọi đồng bào và chiến sĩ cả nước, ngày 17/7/1966.",
+
+        sourceNote:
+            "Luận điểm này chứng minh chiều thứ hai của mối quan hệ: CNXH là con đường bảo đảm độc lập dân tộc vững chắc.",
+
+        references: [
+            "Giáo trình Tư tưởng Hồ Chí Minh, Chương 3, Mục 3.3.2",
+            "Hồ Chí Minh, Lời kêu gọi đồng bào và chiến sĩ cả nước, 1966",
+            "Cổng thông tin Hồ Chí Minh: Chân lý vĩ đại Không có gì quý hơn độc lập, tự do",
+        ],
+
+        keywords: ["Bảo đảm độc lập", "Thực lực quốc gia", "Đoàn kết", "Tự do"],
     },
+
     {
-        id: "modern-video",
-        type: "videoFocus",
+        id: "conditions",
+        type: "content",
         number: "04",
-        label: "Minh họa hiện đại",
-        title: "Chủ Động Hội Nhập",
-        subtitle: "Phát triển vì nhân dân, giữ vững vị thế dân tộc",
-        icon: ShieldCheck,
-        layout: "videoLarge",
+        label: "Mục 3.3.3",
+        title: "Điều kiện bảo đảm độc lập dân tộc gắn liền với CNXH",
+        subtitle:
+            "Mối quan hệ giữa độc lập dân tộc và CNXH chỉ trở thành hiện thực khi có lực lượng lãnh đạo, sức mạnh nhân dân và sự kết hợp với thời đại.",
+        icon: Globe2,
+        layout: "contentLarge",
         backgroundImage: "/images/blue.png",
         video: "/videos/Hiendai1.mp4",
         accent: "blue",
+
+        thesis:
+            "Độc lập dân tộc gắn liền với CNXH không tự diễn ra một cách tự nhiên. Để hiện thực hóa con đường đó, cần có những điều kiện bảo đảm: vai trò lãnh đạo của Đảng, khối đại đoàn kết toàn dân tộc và sự đoàn kết quốc tế.",
+
+        argument:
+            "Đảng Cộng sản giữ vai trò định hướng đường lối; nhân dân là chủ thể tạo nên sức mạnh bên trong; đoàn kết quốc tế giúp kết hợp sức mạnh dân tộc với sức mạnh thời đại. Ba điều kiện này tạo nên sức mạnh tổng hợp để vừa xây dựng CNXH, vừa bảo vệ độc lập dân tộc.",
+
         content: [
-            "Việt Nam hiện đại cần phát triển kinh tế, khoa học, giáo dục và công nghệ.",
-            "Hội nhập quốc tế phải đi cùng bảo vệ chủ quyền và giữ vững bản sắc dân tộc.",
+            "Một là, bảo đảm vai trò lãnh đạo của Đảng Cộng sản Việt Nam.",
+            "Hai là, củng cố khối đại đoàn kết toàn dân tộc, lấy liên minh công - nông - trí thức làm nền tảng.",
+            "Ba là, đoàn kết với các lực lượng cách mạng và tiến bộ trên thế giới để tạo nên sức mạnh tổng hợp.",
         ],
-        keywords: ["Công nghệ", "Thành phố", "Hội nhập", "Tương lai"],
-        quote: "Giữ vững độc lập. Chủ động hội nhập. Phát triển vì nhân dân.",
+
+        quote:
+            "Đoàn kết, đoàn kết, đại đoàn kết. Thành công, thành công, đại thành công.",
+
+        quoteSource:
+            "Tư tưởng Hồ Chí Minh về đại đoàn kết toàn dân tộc, thường được dẫn trong các tài liệu nghiên cứu và giáo trình.",
+
+        sourceNote:
+            "Luận điểm này trả lời câu hỏi: muốn giữ vững mối quan hệ giữa độc lập dân tộc và CNXH thì cần những điều kiện nào.",
+
+        references: [
+            "Giáo trình Tư tưởng Hồ Chí Minh, Chương 3, Mục 3.3.3",
+            "Cổng thông tin Hồ Chí Minh: Tư tưởng Hồ Chí Minh về độc lập dân tộc gắn liền với chủ nghĩa xã hội",
+            "Tài liệu về tư tưởng Hồ Chí Minh về đại đoàn kết toàn dân tộc",
+        ],
+
+        keywords: ["Đảng lãnh đạo", "Đại đoàn kết", "Liên minh công - nông - trí", "Đoàn kết quốc tế"],
     },
 ];
 const accentStyles = {
@@ -141,9 +235,9 @@ const accentStyles = {
 function getAccent(accent) {
     return accentStyles[accent] || accentStyles.red;
 }
-function VideoFrame({ src, label }) {
+function AmbientVideo({ src, label, accent = "red" }) {
     return (
-        <div className="relative rounded-[2rem] overflow-hidden border border-[#8B0000]/20 dark:border-[#D4AF37]/30 bg-black shadow-[0_20px_60px_rgba(0,0,0,0.25)] dark:shadow-[0_0_50px_rgba(212,175,55,0.12)]">
+        <div className="pointer-events-none relative h-full min-h-[420px] overflow-hidden rounded-[2.5rem] border border-white/10 bg-black/20 shadow-[0_30px_90px_rgba(0,0,0,0.22)] backdrop-blur-sm">
             <video
                 src={src}
                 autoPlay
@@ -151,12 +245,22 @@ function VideoFrame({ src, label }) {
                 loop
                 playsInline
                 preload="metadata"
-                className="w-full aspect-video object-cover opacity-90"
+                className="absolute inset-0 h-full w-full object-cover opacity-45 saturate-[0.9] contrast-[0.95]"
             />
 
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/10" />
+            {/* Làm video lùi xuống, không tranh nội dung */}
+            <div className="absolute inset-0 bg-gradient-to-l from-black/20 via-black/45 to-black/80" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/25" />
 
-            <div className="absolute left-5 bottom-5 px-4 py-2 rounded-full bg-black/55 backdrop-blur-md border border-white/10 text-white text-[11px] uppercase tracking-[0.25em]">
+            {/* Lớp kính nghệ thuật */}
+            <div className="absolute inset-5 rounded-[2rem] border border-white/10 bg-white/[0.03] backdrop-blur-[1px]" />
+
+            {/* Decorative scan line */}
+            <div className="absolute inset-x-8 top-8 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent" />
+            <div className="absolute inset-y-8 right-8 w-px bg-gradient-to-b from-transparent via-white/30 to-transparent" />
+
+            {/* Label nhỏ, không làm người xem chú ý quá */}
+            <div className="absolute bottom-6 right-6 rounded-full border border-white/10 bg-black/35 px-4 py-2 text-[10px] font-bold uppercase tracking-[0.24em] text-white/45 backdrop-blur-md">
                 {label}
             </div>
         </div>
@@ -165,199 +269,288 @@ function VideoFrame({ src, label }) {
 
 function SectionPanel({ item, index }) {
     const Icon = item.icon;
-    const isVideoLarge = item.layout === "videoLarge";
     const accent = getAccent(item.accent);
 
     return (
-        <article className="relative h-full w-screen shrink-0 overflow-hidden bg-[#050505]">
-            {/* Ảnh nền chính của từng section */}
+        <article className="relative h-full w-screen shrink-0 overflow-hidden bg-black">
+            {/* VIDEO FULL SCREEN BACKGROUND */}
+            <video
+                src={item.video}
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                className="absolute inset-0 h-full w-full object-cover opacity-100"
+            />
+
+            {/* Ảnh nền chỉ làm fallback rất nhẹ, không đè video */}
             <div
-                className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+                className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-0"
                 style={{
                     backgroundImage: `url('${item.backgroundImage}')`,
                 }}
             />
 
-            {/* 
-                Overlay 1:
-                Làm ảnh dịu xuống một chút nhưng vẫn nhìn rõ.
-                Opacity này cố tình không quá mạnh để ảnh vẫn có chi tiết.
-            */}
-            <div className="absolute inset-0 bg-white/42 dark:bg-black/38" />
+            {/* Overlay nhẹ để video vẫn rõ */}
+            <div className="absolute inset-0 bg-black/18" />
 
-            {/* 
-                Overlay 2:
-                Tạo vùng đọc chữ rõ hơn ở phía content.
-                Bên trái/sát nội dung sáng hơn ở light mode, tối hơn ở dark mode.
-            */}
-            <div className="absolute inset-0 bg-gradient-to-r from-white/88 via-white/58 to-white/18 dark:from-black/88 dark:via-black/58 dark:to-black/22" />
+            {/* Chỉ tối nhẹ phía dưới và trên để giữ chất cinematic */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/42 via-transparent to-black/25" />
 
-            {/* 
-                Overlay 3:
-                Giữ chiều sâu điện ảnh, tránh ảnh bị phẳng.
-            */}
-            <div className="absolute inset-0 bg-gradient-to-t from-white/70 via-transparent to-white/18 dark:from-black/80 dark:via-transparent dark:to-black/30" />
+            {/* Tạo vùng đọc chữ ở giữa modal, không làm tối toàn bộ video quá nhiều */}
+            <div className="absolute inset-0 bg-gradient-to-r from-black/20 via-transparent to-black/20" />
 
-            {/* Soft vignette */}
-            <div className="absolute inset-0 shadow-[inset_0_0_160px_rgba(0,0,0,0.18)] dark:shadow-[inset_0_0_180px_rgba(0,0,0,0.78)] pointer-events-none" />
+            {/* Vignette nhẹ hơn rất nhiều */}
+            <div className="pointer-events-none absolute inset-0 shadow-[inset_0_0_120px_rgba(0,0,0,0.45)]" />
 
-            {/* Decorative light */}
-            <div className="absolute top-20 left-10 w-80 h-80 bg-white/20 dark:bg-white/5 rounded-full blur-[130px]" />
-            <div className="absolute bottom-10 right-10 w-96 h-96 bg-black/5 dark:bg-white/5 rounded-full blur-[150px]" />
+            {/* Decorative lights */}
+            <div className="absolute left-[-8%] top-[12%] h-80 w-80 rounded-full bg-yellow-300/10 blur-[140px]" />
+            <div className="absolute right-[-10%] bottom-[8%] h-96 w-96 rounded-full bg-cyan-300/10 blur-[160px]" />
 
-            <div className="relative z-10 h-full w-full px-4 md:px-8 lg:px-14 flex items-center">
-                <div
-                    className={`grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center w-full ${
-                        isVideoLarge
-                            ? "lg:grid-cols-[0.9fr_1.1fr]"
-                            : "lg:grid-cols-[1.2fr_0.8fr]"
-                    }`}
+            {/* Small ambient label - cho biết video chỉ là nền */}
+            <div className="absolute left-8 top-8 z-20 hidden rounded-full border border-white/10 bg-black/35 px-4 py-2 text-[10px] font-bold uppercase tracking-[0.28em] text-white/45 backdrop-blur-xl md:block">
+                Ambient visual / {item.label}
+            </div>
+
+            {/* CONTENT MODAL CENTER */}
+            <div className="relative z-10 flex h-full w-full items-center justify-center px-4 py-8 md:px-8 lg:px-14">
+                <motion.div
+                    initial={{ opacity: 0, y: 26, scale: 0.97 }}
+                    whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                    viewport={{ once: false, amount: 0.45 }}
+                    transition={{ duration: 0.55, ease: "easeOut" }}
+                    className="presentation-panel-scroll relative max-h-[calc(100vh-120px)] w-full max-w-5xl overflow-y-auto rounded-[2.2rem] border border-white/15 bg-black/58 p-5 text-white shadow-[0_30px_100px_rgba(0,0,0,0.55)] backdrop-blur-2xl md:p-7 lg:p-8"
                 >
-                    {/* CONTENT */}
-                    <div className="relative max-w-4xl">
-                        <div className="flex items-center gap-4 mb-7">
-                            <div
-                                className={`w-16 h-16 rounded-2xl border ${accent.iconBorder} ${accent.iconBg} backdrop-blur-md flex items-center justify-center shadow-lg`}
-                            >
-                                <Icon className={`w-8 h-8 ${accent.iconText}`} />
-                            </div>
+                    {/* Modal inner glow */}
+                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-white/5" />
+                    <div className="pointer-events-none absolute left-0 top-0 h-full w-1 bg-gradient-to-b from-red-500 via-yellow-300 to-cyan-300" />
 
-                            <div>
-                                <p className={`${accent.text} text-xs md:text-sm font-bold tracking-[0.35em] uppercase`}>
-                                    Session 11 / {item.label}
-                                </p>
-                                <p className="text-gray-300 dark:text-white/20 font-serif text-4xl font-bold">
-                                    {item.number}
-                                </p>
-                            </div>
-                        </div>
+                    <div className="relative z-10">
+                        {/* Header */}
+                        <div className="mb-7 flex flex-wrap items-start justify-between gap-5">
+                            <div className="flex items-center gap-4">
+                                <div
+                                    className={`flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl border ${accent.iconBorder} bg-white/10 backdrop-blur-xl`}
+                                >
+                                    <Icon className={`h-8 w-8 ${accent.iconText}`} />
+                                </div>
 
-                        <h2 className="text-3xl md:text-5xl lg:text-6xl font-serif font-bold text-gray-950 dark:text-white uppercase leading-tight mb-6 drop-shadow-[0_1px_0_rgba(255,255,255,0.3)] dark:drop-shadow-[0_2px_12px_rgba(0,0,0,0.8)]">
-                            {item.title}
-                        </h2>
-
-                        <p className={`text-lg md:text-2xl ${accent.text} font-serif italic leading-relaxed mb-7 font-semibold`}>
-                            {item.subtitle}
-                        </p>
-
-                        <div className="space-y-4 mb-7">
-                            {item.content.map((text, i) => (
-                                <div key={i} className="flex gap-4">
-                                    <div
-                                        className={`mt-1 w-7 h-7 rounded-full ${accent.bulletBg} border ${accent.bulletBorder} flex items-center justify-center shrink-0 backdrop-blur-sm`}
+                                <div>
+                                    <p
+                                        className={`${accent.text} text-sm font-black uppercase tracking-[0.28em] drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)] md:text-base`}
                                     >
-                                        <span className={`text-xs font-bold ${accent.text}`}>
-                                            {i + 1}
-                                        </span>
-                                    </div>
-
-                                    <p className="text-gray-800 dark:text-gray-200 leading-relaxed text-base md:text-lg font-medium drop-shadow-[0_1px_0_rgba(255,255,255,0.2)] dark:drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
-                                        {text}
+                                        Session 11 / {item.label}
+                                    </p>
+                                    <p className="mt-1 text-sm font-semibold uppercase tracking-[0.24em] text-white/35">
+                                        Panel {item.number} / {session11Sections.length}
                                     </p>
                                 </div>
-                            ))}
+                            </div>
+
+                            <div className="rounded-full border border-white/10 bg-white/[0.06] px-4 py-2 text-xs font-bold uppercase tracking-[0.22em] text-white/50">
+                                Cuộn để chuyển ngang
+                            </div>
                         </div>
 
-                        <div className="flex flex-wrap gap-3 mb-7">
-                            {item.keywords.map((keyword) => (
-                                <span
-                                    key={keyword}
-                                    className={`px-4 py-2 rounded-full border ${accent.chipBorder} bg-white/68 dark:bg-black/35 backdrop-blur-md text-gray-900 dark:text-white text-sm font-semibold shadow-sm`}
-                                >
-                                    {keyword}
-                                </span>
-                            ))}
-                        </div>
+                        {/* Main title */}
+                        <div className="max-w-4xl">
+                            <h2 className="text-3xl font-black uppercase leading-[1.05] text-white md:text-5xl lg:text-6xl">
+                                {item.title}
+                            </h2>
 
-                        <div
-                            className={`p-5 rounded-2xl ${accent.quoteBg} border-l-4 ${accent.quoteBorder} bg-white/58 dark:bg-black/35 backdrop-blur-md shadow-sm`}
-                        >
-                            <p className={`${accent.text} font-serif italic font-bold text-lg leading-relaxed`}>
-                                {item.quote}
+                            <p
+                                className={`mt-5 max-w-4xl text-2xl font-serif italic font-black leading-relaxed md:text-3xl lg:text-[2rem] ${accent.text} drop-shadow-[0_3px_14px_rgba(0,0,0,0.95)]`}
+                            >
+                                {item.subtitle}
                             </p>
                         </div>
-                    </div>
 
-                    {/* VIDEO FRAME */}
-                    <div className={isVideoLarge ? "lg:scale-105" : ""}>
-                        <VideoFrame src={item.video} label={item.label} />
+                        {/* Body content */}
+                        <div className="mt-8 grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
+                            {/* LEFT: Luận điểm + nội dung chính */}
+                            <div className="space-y-4">
+                                <div className="rounded-3xl border border-white/10 bg-white/[0.07] p-5 backdrop-blur-md">
+                                    <p className="mb-2 text-[11px] font-black uppercase tracking-[0.24em] text-yellow-200/80">
+                                        Luận điểm chính
+                                    </p>
+                                    <p className="text-base font-semibold leading-relaxed text-white/85 md:text-lg">
+                                        {item.thesis}
+                                    </p>
+                                </div>
 
-                        <div className="mt-5 flex items-center justify-between text-xs uppercase tracking-[0.25em] text-gray-600 dark:text-gray-400">
+                                <div className="rounded-3xl border border-white/10 bg-black/24 p-5 backdrop-blur-md">
+                                    <p className="mb-2 text-[11px] font-black uppercase tracking-[0.24em] text-cyan-200/80">
+                                        Giải thích
+                                    </p>
+                                    <p className="text-sm font-medium leading-relaxed text-white/72 md:text-base">
+                                        {item.argument}
+                                    </p>
+                                </div>
+
+                                <div className="space-y-3">
+                                    {item.content.map((text, i) => (
+                                        <motion.div
+                                            key={i}
+                                            initial={{ opacity: 0, x: -18 }}
+                                            whileInView={{ opacity: 1, x: 0 }}
+                                            viewport={{ once: false }}
+                                            transition={{ delay: i * 0.08 }}
+                                            className="flex gap-4 rounded-2xl border border-white/10 bg-white/[0.06] p-4 backdrop-blur-md"
+                                        >
+                                            <div
+                                                className={`mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full ${accent.bulletBg} border ${accent.bulletBorder}`}
+                                            >
+                                                <span className={`text-xs font-black ${accent.text}`}>
+                                                    {i + 1}
+                                                </span>
+                                            </div>
+
+                                            <p className="text-sm font-medium leading-relaxed text-white/82 md:text-base">
+                                                {text}
+                                            </p>
+                                        </motion.div>
+                                    ))}
+                                </div>
+                            </div>
+
+                            {/* RIGHT: Trích dẫn + nguồn + reference */}
+                            <div className="flex flex-col gap-5">
+                                <div
+                                    className={`rounded-3xl border-l-4 ${accent.quoteBorder} bg-white/[0.07] p-5 backdrop-blur-xl`}
+                                >
+                                    <p className="mb-3 text-sm font-black uppercase tracking-[0.22em] text-white/60 drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)]">
+                                        Trích dẫn liên hệ
+                                    </p>                                    
+                                    <p
+                                        className={`${accent.text} font-serif text-xl font-black italic leading-relaxed drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)] md:text-2xl`}
+                                    >
+                                        “{item.quote}”
+                                    </p>
+                                    <p className="mt-4 text-xs font-medium leading-relaxed text-white/50">
+                                        {item.quoteSource}
+                                    </p>
+                                </div>
+
+                                <div className="rounded-3xl border border-white/10 bg-black/24 p-5 backdrop-blur-md">
+                                    <p className="mb-2 text-[11px] font-black uppercase tracking-[0.24em] text-yellow-200/80">
+                                        Căn cứ học thuật
+                                    </p>
+                                    <p className="text-sm leading-relaxed text-white/68">
+                                        {item.sourceNote}
+                                    </p>
+                                </div>
+
+                                <div>
+                                    <p className="mb-3 text-[11px] font-black uppercase tracking-[0.24em] text-white/35">
+                                        Tài liệu tham khảo
+                                    </p>
+
+                                    <div className="space-y-2">
+                                        {item.references?.map((ref, i) => (
+                                            <div
+                                                key={i}
+                                                className="rounded-2xl border border-white/10 bg-white/[0.05] px-4 py-3 text-sm font-medium leading-relaxed text-white/62 backdrop-blur-md"
+                                            >
+                                                {ref}
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <p className="mb-3 text-[11px] font-black uppercase tracking-[0.24em] text-white/35">
+                                        Từ khóa ghi nhớ
+                                    </p>
+
+                                    <div className="flex flex-wrap gap-3">
+                                        {item.keywords.map((keyword) => (
+                                            <span
+                                                key={keyword}
+                                                className={`rounded-full border ${accent.chipBorder} bg-white/[0.07] px-4 py-2 text-sm font-bold text-white/80 backdrop-blur-md`}
+                                            >
+                                                {keyword}
+                                            </span>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {/* Footer */}
+                        <div className="mt-8 flex items-center justify-between border-t border-white/10 pt-5 text-xs uppercase tracking-[0.24em] text-white/35">
                             <span>
                                 {index + 1} / {session11Sections.length}
                             </span>
 
                             <div className="flex items-center gap-2">
-                                <span>Cuộn để chuyển ngang</span>
-                                <ChevronRight className={`w-4 h-4 ${accent.text}`} />
+                                <span>Tiếp tục</span>
+                                <ChevronRight className={`h-4 w-4 ${accent.text}`} />
                             </div>
                         </div>
                     </div>
-                </div>
+                </motion.div>
             </div>
         </article>
     );
 }
 export default function Session11Horizontal() {
-  const targetRef = useRef(null);
-  const panelCount = session11Sections.length;
+    const targetRef = useRef(null);
+    const panelCount = session11Sections.length;
 
-  const { scrollYProgress } = useScroll({
-    target: targetRef,
-    offset: ["start start", "end end"],
-  });
+    const { scrollYProgress } = useScroll({
+        target: targetRef,
+        offset: ["start start", "end end"],
+    });
 
-  /*
-    Keyframe logic:
-    0.00 - 0.14: giữ panel 1
-    0.14 - 0.26: chuyển panel 1 -> panel 2
-    0.26 - 0.40: giữ panel 2
-    0.40 - 0.52: chuyển panel 2 -> panel 3
-    0.52 - 0.66: giữ panel 3
-    0.66 - 0.78: chuyển panel 3 -> panel 4
-    0.78 - 1.00: giữ panel 4 thật lâu rồi mới xuống Flipbook
-  */
-  const x = useTransform(
-    scrollYProgress,
-    [0, 0.14, 0.26, 0.40, 0.52, 0.66, 0.78, 1],
-    ["0vw", "0vw", "-100vw", "-100vw", "-200vw", "-200vw", "-300vw", "-300vw"]
-  );
+    /*
+      Keyframe logic:
+      0.00 - 0.14: giữ panel 1
+      0.14 - 0.26: chuyển panel 1 -> panel 2
+      0.26 - 0.40: giữ panel 2
+      0.40 - 0.52: chuyển panel 2 -> panel 3
+      0.52 - 0.66: giữ panel 3
+      0.66 - 0.78: chuyển panel 3 -> panel 4
+      0.78 - 1.00: giữ panel 4 thật lâu rồi mới xuống Flipbook
+    */
+    const x = useTransform(
+        scrollYProgress,
+        [0, 0.14, 0.26, 0.40, 0.52, 0.66, 0.78, 1],
+        ["0vw", "0vw", "-100vw", "-100vw", "-200vw", "-200vw", "-300vw", "-300vw"]
+    );
 
-  const progressWidth = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
+    const progressWidth = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
-  return (
-    <section
-      id="session11"
-      ref={targetRef}
-      className="relative z-10 bg-[#050505]"
-      style={{ height: `${panelCount * 160}vh` }}
-    >
-      <div className="sticky top-0 h-screen overflow-hidden bg-[#050505]">
-        {/* pt-20 để né navbar fixed 80px */}
-        <div className="h-full pt-20">
-          <motion.div
-            style={{
-              x,
-              width: `${panelCount * 100}vw`,
-            }}
-            className="flex h-[calc(100vh-5rem)]"
-          >
-            {session11Sections.map((item, index) => (
-              <SectionPanel key={item.id} item={item} index={index} />
-            ))}
-          </motion.div>
-        </div>
+    return (
+        <section
+            id="session11"
+            ref={targetRef}
+            className="relative z-10 bg-[#050505]"
+            style={{ height: `${panelCount * 160}vh` }}
+        >
+            <div className="sticky top-[80px] h-[calc(100vh-80px)] overflow-hidden bg-[#050505]">
+                <div className="h-full">
+                    <motion.div
+                        style={{
+                            x,
+                            width: `${panelCount * 100}vw`,
+                        }}
+                        className="flex h-full"
+                    >
+                        {session11Sections.map((item, index) => (
+                            <SectionPanel key={item.id} item={item} index={index} />
+                        ))}
+                    </motion.div>
+                </div>
 
-        {/* Progress bar */}
-        <div className="absolute left-1/2 bottom-7 z-30 w-[min(520px,80vw)] -translate-x-1/2">
-          <div className="h-1 rounded-full bg-white/15 overflow-hidden">
-            <motion.div
-              style={{ width: progressWidth }}
-              className="h-full bg-gradient-to-r from-[#8B0000] to-[#D4AF37]"
-            />
-          </div>
-        </div>
-      </div>
-    </section>
-  );
+                <div className="absolute left-1/2 bottom-7 z-30 w-[min(520px,80vw)] -translate-x-1/2">
+                    <div className="h-1 overflow-hidden rounded-full bg-white/15">
+                        <motion.div
+                            style={{ width: progressWidth }}
+                            className="h-full bg-gradient-to-r from-[#8B0000] to-[#D4AF37]"
+                        />
+                    </div>
+                </div>
+            </div>
+        </section>
+    );
 }
