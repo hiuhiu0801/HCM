@@ -1,4 +1,3 @@
-# Kinh tế thị trường định hướng xã hội chủ nghĩa ở Việt Nam
 
 ## Chạy local
 
