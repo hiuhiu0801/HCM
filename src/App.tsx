@@ -50,6 +50,7 @@ import { getChatResponse } from "./lib/gemini";
 import { auth, googleProvider } from "./lib/firebase";
 import { signInWithPopup, signOut, onAuthStateChanged, User as FirebaseUser, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile, sendPasswordResetEmail } from "firebase/auth";
 import { Footer } from "./Footer"; // Sửa lại đường dẫn nếu bạn để ở thư mục khác, VD: "./components/Footer"
+import FlipBook from "./FlipBook";
 // ==========================================
 // INTERFACES
 // ==========================================
@@ -390,11 +391,55 @@ export default function App() {
           </div>
 
           <div className="hidden md:flex items-center gap-8">
-            <div className="flex items-center gap-6 mr-4 border-r border-gray-300 dark:border-white/20 pr-8">
-              <a href="#hero" className="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-[#8B0000] dark:hover:text-[#D4AF37] transition-colors uppercase tracking-wider">Khai mạc</a>
-              <a href="#session10" className="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-[#8B0000] dark:hover:text-[#D4AF37] transition-colors uppercase tracking-wider">Phòng 10</a>
-              <a href="#session11" className="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-[#8B0000] dark:hover:text-[#D4AF37] transition-colors uppercase tracking-wider">Phòng 11</a>
-              <a href="#strategic-map" className="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-[#8B0000] dark:hover:text-[#D4AF37] transition-colors uppercase tracking-wider">Tư liệu</a>
+            <div className="flex items-center gap-5 mr-4 border-r border-gray-300 dark:border-white/20 pr-8">
+              <a
+                href="#hero"
+                className="text-xs font-bold text-gray-600 dark:text-gray-300 hover:text-[#8B0000] dark:hover:text-[#D4AF37] transition-colors uppercase tracking-wider"
+                title="Khai mạc không gian triển lãm"
+              >
+                Khai mạc
+              </a>
+
+              <a
+                href="#session10"
+                className="text-xs font-bold text-gray-600 dark:text-gray-300 hover:text-[#8B0000] dark:hover:text-[#D4AF37] transition-colors uppercase tracking-wider"
+                title="Tư tưởng Hồ Chí Minh về thời kỳ quá độ lên chủ nghĩa xã hội tại Việt Nam"
+              >
+                Thời kỳ quá độ
+              </a>
+
+              <a
+                href="#session11"
+                className="text-xs font-bold text-gray-600 dark:text-gray-300 hover:text-[#8B0000] dark:hover:text-[#D4AF37] transition-colors uppercase tracking-wider"
+                title="Mối quan hệ giữa độc lập dân tộc và chủ nghĩa xã hội"
+              >
+                Độc lập & CNXH
+              </a>
+
+              <a
+                href="#session12"
+                className="text-xs font-bold text-gray-600 dark:text-gray-300 hover:text-[#8B0000] dark:hover:text-[#D4AF37] transition-colors uppercase tracking-wider"
+                title="Vận dụng tư tưởng Hồ Chí Minh trong giai đoạn hiện nay"
+              >
+                Vận dụng hiện nay
+              </a>
+
+              <a
+                href="#strategic-map"
+                className="text-xs font-bold text-gray-600 dark:text-gray-300 hover:text-[#8B0000] dark:hover:text-[#D4AF37] transition-colors uppercase tracking-wider"
+                title="Bản đồ chiến lược Việt Nam"
+              >
+                Strategic Map
+              </a>
+
+              <a
+                href="#flipbook"
+                className="text-xs font-bold text-gray-600 dark:text-gray-300 hover:text-[#8B0000] dark:hover:text-[#D4AF37] transition-colors uppercase tracking-wider"
+                title="Ngọn Đèn Ở Cuối Làng – truyện tranh tương tác"
+              >
+                Flipbook
+              </a>
+
             </div>
 
             <div className="flex items-center gap-3">
@@ -478,7 +523,7 @@ export default function App() {
         <section id="hero" className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden z-10">
           {/* Ảnh nền */}
           <div
-            className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat opacity-60 dark:opacity-50"
+            className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat opacity-60 dark:opacity-80"
             style={{ backgroundImage: `url('/images/BG1.jpg')` }}
           ></div>
 
@@ -521,23 +566,38 @@ export default function App() {
         </section>
 
         {/* ==========================================
-                B. SESSION 10 
-            ========================================== */}
-        <Session10Horizontal />
+        B. SESSION 10 
+    ========================================== */}
+        <section id="session10">
+          <Session10Horizontal />
+        </section>
 
         {/* ==========================================
-                C. SESSION 11
-            ========================================== */}
-        <Session11Horizontal />
-         {/* ==========================================
-                D. SESSION 12
-            ========================================== */}
-        <Session12CommandCenter />
+        C. SESSION 11
+    ========================================== */}
+        <section id="session11">
+          <Session11Horizontal />
+        </section>
+
         {/* ==========================================
-                E. FLIPBOOK 
-            ========================================== */}
+        D. SESSION 12
+    ========================================== */}
+        <section id="session12">
+          <Session12CommandCenter />
+        </section>
+
+        {/* ==========================================
+        E. STRATEGIC MAP
+    ========================================== */}
         <section id="strategic-map">
           <StrategicStoryMap />
+        </section>
+
+        {/* ==========================================
+        F. FLIPBOOK
+    ========================================== */}
+        <section id="flipbook" className="relative z-10 bg-gray-50 dark:bg-[#0A0A0A] py-16">
+          <FlipBook />
         </section>
 
       </main>

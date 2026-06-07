@@ -6,51 +6,104 @@ import React, {
   useState,
 } from "react";
 import HTMLFlipBook from "react-pageflip";
-import TechnicalPage from "./TechnicalPage";
 import { TECHNICAL_FLIPBOOK_PAGES } from "./data/technicalFlipbookPages";
-const PAGE_RATIO = 0.5625;
-
-const DEFAULT_PAGES = [
-  { src: "/pages/cover_start.png", alt: "Bìa truyện", type: "cover" },
-  ...Array.from({ length: 24 }, (_, i) => ({
-    src: `/pages/${i + 1}.png`,
-    alt: `Trang ${i + 1}`,
-  })),
-  { src: "/pages/cover_end.png", alt: "Bìa sau", type: "cover" },
-];
+const PAGE_RATIO = 1024 / 576;
+const DEFAULT_PAGES = Array.from({ length: 16 }, (_, i) => ({
+  id: `page-${i}`,
+  src: `/images/flipbook/P_${i}.jpg`,
+  alt: i === 0 ? "Trang bìa" : `Trang truyện ${i}`,
+  type: i === 0 ? "cover" : "story",
+}));
 
 const DEFAULT_STORY_TEXTS = [
-  "Tấm Khiên Giữa Dòng Thị Trường. Chào mừng các bạn đến với câu chuyện về một xóm chợ nhỏ trong những ngày đại dịch COVID-19. Qua biến cố này, chúng ta sẽ cùng tìm hiểu về bản chất của kinh tế thị trường định hướng xã hội chủ nghĩa tại Việt Nam – một nền kinh tế năng động nhưng luôn lấy con người làm trung tâm, đảm bảo không một ai bị bỏ lại phía sau.",
-  "Buổi sáng ở xóm chợ nhỏ bắt đầu trong ánh nắng vàng dịu nhẹ. Những gian hàng dần mở cửa, tiếng người gọi nhau í ới, tiếng mặc cả rôm rả vang lên khắp nơi. Rau xanh, thịt cá được bày biện gọn gàng, tạo nên một khung cảnh quen thuộc và đầy sức sống. Nơi đây không chỉ là chỗ mua bán, mà còn là nhịp sống thường ngày của người dân.",
-  "Ở một góc chợ, cô Lan – người bán thịt quen thuộc – đang nhanh tay chuẩn bị tinh hàng cho khách. Dù công việc bận rộn, cô vẫn luôn nở nụ cười thân thiện, trò chuyện vui vẻ với mọi người. Sự chăm chỉ và nhiệt tình của cô đã trở thành một phần không thể thiếu của khu chợ nhỏ này.",
-  "Giữa dòng người tấp nập, bà Tâm dắt tay bé Na đi chợ, bà chọn từng bó rau, cân nhắc từng món đồ còn bé Na thì tò mò nhìn ngắm xung quanh. Hình ảnh 2 bà cháu giản dị nhưng ấm áp ấy khiến khung cảnh chợ thêm gần gũi và yêu thương",
-  "Những giao dịch diễn ra liên tục, người bán kẻ mua trao đổi nhanh chóng. Đồng tiền được trao tay, hàng hóa được chuyển đi, tất cả tạo nên một vòng quay nhịp nhàng của cuộc sống. Đây chính là hình ảnh rõ nét của một thị trường vận hành ổn định và tự nhiên.",
-  "Khi ngày dần tắt, mọi người trở về nhà. Trong căn bếp nhỏ, bữa cơm gia đình được dọn ra đơn giản nhưng đầy đủ. Tiếng cười nói vang lên bên mâm cơm, thể hiện một cuộc sống tuy không dư dả nhưng đủ đầy và hạnh phúc.",
-  "Một ngày, một cuộc gọi đã thay đổi tất cả. Từ giây phút đó, một hành trình mới chính thức bắt đầu.Một buổi tối, tin tức về dịch bệnh bất ngờ xuất hiện trên màn hình TV. Những con số và thông báo khẩn khiến người xem không khỏi lo lắng. Không khí trong căn nhà trở nên trầm lắng, báo hiệu một biến cố đang đến gần.",
-  "Ngay sau đó, người dân đổ xô đến chợ để mua hàng tích trữ. Không còn sự trật tự như trước, thay vào đó là cảnh chen lấn, vội vã. Ai cũng cố gắng mua thật nhiều trong nỗi lo sợ thiếu thốn.",
-  "Cô Lan đứng giữa khung cảnh hỗn loạn, tay vẫn làm việc nhưng ánh mắt đầy lo âu. Việc buôn bán không còn đơn thuần như trước, mà trở thành áp lực khi mọi thứ đều biến động.",
-  "Trên bảng giá: BÁN LẺ... 20,000đ, 55,000đ, 35,000đ, 110,000đ. Tăng giá",
-  "Bà Tâm cầm những đồng tiền ít ỏi trong tay, nhìn vào các mặt hàng mà không biết nên chọn gì. Giá cả tăng cao khiến bà không thể mua đủ những thứ cần thiết.",
-  "Cuối cùng, hai bà cháu đành lặng lẽ rời khỏi chợ. Bóng lưng họ kéo dài trên con đường vắng, mang theo sự buồn bã và nỗi lo về những ngày sắp tới.",
-  "Giữa lúc khó khăn nhất, những chiếc xe quân đội chở đầy hàng hóa tiến vào khu dân cư. Sự xuất hiện ấy mang theo hy vọng và sự hỗ trợ kịp thời cho người dân.",
-  "Các cán bộ dùng loa thông báo những chính sách hỗ trợ từ Nhà nước. Giọng nói vang lên rõ ràng, giúp người dân hiểu rằng họ không hề đơn độc trong lúc khó khăn.",
-  "Những bao gạo, nhu yếu phẩm được trao tận tay từng người dân. Khoảnh khắc ấy không chỉ là sự giúp đỡ về vật chất mà còn là sự sẻ chia đầy nhân văn.",
-  " Bà Tâm ôm chặt túi gạo trong tay, nước mắt lăn dài trên má. Đó là giọt nước mắt của sự biết ơn và nhẹ nhõm khi được giúp đỡ đúng lúc.",
-  "Cô Lan nhận được thông tin về các chính sách hỗ trợ, gương mặt dần giãn ra sau những ngày lo lắng. Việc buôn bán có cơ hội ổn định trở lại.",
-  "Giá cả trên bảng được điều chỉnh xuống mức hợp lý hơn. Không khí chợ dần trở nên ổn định, người dân bớt đi phần nào áp lực.",
-  "Tại trạm y tế, các bác sĩ tận tình chăm sóc bệnh nhân. Những đứa trẻ và và người già được quan tâm chu đáo, tạo cảm giác an ân cho cả cộng đồng.",
-  " Những tấm thẻ bảo hiểm được trao đến tay người dân. Đây không chỉ là hỗ trợ trước mắt mà còn là sự đảm bảo dài cho sức khỏe của họ.",
-  "Sau những ngày khó khăn, xóm chợ dần hoạt động trở lại. Tiếng cười nói, mua bán nhộn nhịp lại vang lên như trước.",
-  "Bé Na nhận được viên kẹo từ người bán hàng, nụ cười hồn nhiên nở trên môi. Đó là dấu hiệu của sự bình yên đã quay trở lại.",
-  "Người dân trong chợ cùng nhau trò chuyện, chia sẻ niềm vui. Sự gắn kết cộng đồng trở nên mạnh mẽ hơn sau biến cố.",
-  "Từ trên cao nhìn xuống, xóm chợ nhỏ nằm giữa thành phố hiện đại, đón ánh bình minh mới. Một chặng đường khó khăn đã qua, mở ra tương lai tươi sáng hơn cho tất cả mọi người."
-];
+  `Có những lúc, lòng yêu nước không bắt đầu từ những điều thật lớn lao.
+Nó bắt đầu từ một con đường làng quen thuộc, một lá cờ bay trong gió, một bến thuyền nhỏ, và những con người âm thầm sống vì nhau.
 
-const DEFAULT_AUDIO_FILES = [
-  "/audio/page0.mp3",
-  ...Array.from({ length: 24 }, (_, i) => `/audio/page${i + 1}.mp3`),
-  "/audio/page25.mp3",
+Câu chuyện “Ngọn Đèn Ở Cuối Làng” kể về An, một sinh viên trở về quê sau những ngày học tập ở thành phố.
+Trong một đêm bão, khi ngọn hải đăng cuối làng bất ngờ vụt tắt, An lần đầu hiểu rằng: quê hương không chỉ là nơi để trở về, mà còn là nơi mỗi người cần có trách nhiệm gìn giữ.
+
+Và đôi khi, chỉ một ánh đèn nhỏ cũng có thể soi sáng cả một tình yêu lớn.`,
+
+  `Chiều hè, An kéo vali trở về làng chài ven biển.
+Con đường cát, mái nhà nhỏ, bến thuyền và lá cờ đỏ sao vàng hiện ra trước mắt cậu.
+An từng nghĩ yêu nước là điều gì đó rất lớn lao.
+Nhưng khi trở về nơi mình sinh ra, cậu bắt đầu thấy Tổ quốc thật gần.`,
+
+  `An đứng trên bãi cát, nhìn về ngọn hải đăng cũ ở cuối làng.
+Một đứa trẻ nói với cậu rằng ánh đèn ấy luôn soi đường cho thuyền cá trở về.
+An im lặng nhìn vệt sáng mỏng trên mặt biển.
+Cậu tự hỏi vì sao cả làng luôn tin vào ngọn đèn ấy.`,
+
+  `Sáng hôm sau, làng chài lại bắt đầu một ngày mới.
+Người lớn vá lưới, kéo thuyền, phơi cá. Trẻ con chạy chơi trên cát.
+An nhận ra, mỗi người đều đang âm thầm làm phần việc của mình.
+Có lẽ lòng yêu nước bắt đầu từ những điều bình dị như thế.`,
+
+  `An ngồi trước hiên nhà, mở cuốn giáo trình ra đọc.
+Trên trang sách là những dòng chữ về trách nhiệm của thế hệ trẻ.
+Nhưng An vẫn tự hỏi: yêu nước thật sự là gì?
+Cậu cảm thấy có những câu hỏi chỉ quê hương mới trả lời được.`,
+
+  `Chiều muộn, mây đen kéo đến từ phía biển.
+Sóng bắt đầu mạnh hơn, còn vài chiếc thuyền vẫn chưa kịp trở về.
+Bác cựu chiến binh cầm chiếc radio cũ, lặng lẽ nghe tin bão.
+An nhìn biển và thấy lòng mình bất an.`,
+
+  `Đêm xuống, mưa gió dữ dội bao trùm cả làng.
+Người dân tập trung gần bến, ai cũng căng thẳng chờ tin từ ngoài khơi.
+Những ánh đèn nhỏ run rẩy trong màn mưa.
+Lần đầu tiên, An thấy sự bình yên mong manh đến vậy.`,
+
+  `Giữa cơn bão, ngọn hải đăng cuối làng bất ngờ vụt tắt.
+Cả vùng biển phía trước chìm vào bóng tối.
+Mọi người hoảng hốt nhìn về phía cuối làng.
+Khi ngọn đèn tắt, An mới hiểu vì sao cả làng cần nó sáng.`,
+
+  `Bác cựu chiến binh khoác áo mưa, cầm đèn pin đi về phía hải đăng.
+An nhìn bác, rồi nhìn ra biển tối.
+Cậu không biết mình có giúp được gì không.
+Nhưng cậu biết mình không thể đứng yên.`,
+
+  `Đoàn người đi dọc con đường ven biển trong mưa gió.
+Sóng đánh mạnh vào đá, còn gió thì thổi rát mặt.
+Dưới mái hiên, vài đứa trẻ cầm đèn nhỏ soi theo.
+Trong cơn bão, An thấy làng mình không hề nhỏ bé.`,
+
+  `Bên trong hải đăng, An soi đèn pin lên những bức ảnh cũ.
+Có ảnh dân làng kéo thuyền sau bão, người lính đứng bên biển, trẻ em cầm cờ trong ngày hội làng.
+Bác cựu chiến binh kể rằng nhiều thế hệ đã cùng giữ ngọn đèn này sáng.
+An nhận ra mình đang đứng trong một phần ký ức của làng.`,
+
+  `Trên tầng cao của hải đăng, mọi người cùng sửa hệ thống đèn.
+Người giữ thang, người che mưa, người nối dây, người đưa dụng cụ.
+An phụ bác cựu chiến binh nối lại đoạn dây bị hỏng.
+Cậu hiểu rằng có những điều lớn lao được giữ bằng rất nhiều việc nhỏ.`,
+
+  `Một cơn gió mạnh làm cửa hải đăng bật tung.
+Bóng đèn phụ vỡ, dây điện rơi xuống sàn.
+An thoáng sợ và gần như muốn bỏ cuộc.
+Nhưng khi nhìn xuống bến, cậu thấy cả làng vẫn đang chờ ánh sáng.`,
+
+  `Sau nhiều cố gắng, ngọn hải đăng bừng sáng trở lại.
+Ánh sáng vàng mạnh mẽ xuyên qua màn mưa, rọi ra biển tối.
+Người dân dưới bến reo lên.
+Đêm ấy, An không chỉ thấy một ngọn đèn sáng lên, mà thấy lòng mình cũng sáng lên.`,
+
+  `Ngoài khơi, những chiếc thuyền cá nhìn thấy ánh đèn và lần lượt hướng về bờ.
+Dân làng chạy ra bến đón người thân trong mưa nhẹ dần.
+Một người ngư dân già đặt tay lên vai An và gật đầu cảm ơn.
+An hiểu rằng ánh sáng ấy không chỉ soi biển, mà soi đường cho sự bình yên.`,
+
+  `Sáng hôm sau, bão tan. Biển xanh trở lại, làng chài yên bình dưới nắng sớm.
+An khoác balo, chuẩn bị quay lại thành phố.
+Cậu không còn nghĩ yêu nước là điều xa vời.
+Với An, yêu nước bắt đầu từ trách nhiệm với nơi mình thuộc về.
+Dù đi đâu, cậu cũng sẽ giữ cho ngọn đèn trong lòng luôn sáng.`,
 ];
+const DEFAULT_AUDIO_FILES = Array.from(
+  { length: 16 },
+  (_, i) => `/audio/A_${i}.mp3`
+);
 
 const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -75,9 +128,8 @@ const FlipBook = React.forwardRef((props = {}, ref) => {
   const [isAutoPlay, setIsAutoPlay] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
-  const [bookSize, setBookSize] = useState({ width: 500, height: 281 });
-
-  const pages = useMemo(() => TECHNICAL_FLIPBOOK_PAGES, []);
+  const [bookSize, setBookSize] = useState({ width: 360, height: 640 });
+  const pages = useMemo(() => DEFAULT_PAGES, []);
   const storyTexts = useMemo(() => DEFAULT_STORY_TEXTS, []);
   const audioFiles = useMemo(() => {
     if (Array.isArray(externalAudioFiles) && externalAudioFiles.length > 0) {
@@ -389,14 +441,27 @@ const FlipBook = React.forwardRef((props = {}, ref) => {
   useEffect(() => {
     const updateSize = () => {
       const parentWidth = containerRef.current?.clientWidth || window.innerWidth;
-      const stageWidth = Math.min(parentWidth - 80, 1100);
+      const parentHeight = window.innerHeight;
+      const isMobile = window.innerWidth <= 768;
 
-      let pageWidth = stageWidth / 2;
+      const availableWidth = Math.max(parentWidth - 32, 320);
+
+      // Tăng chiều cao dành cho truyện, vì ảnh của bạn là ảnh dọc
+      const availableHeight = parentHeight * 0.76;
+
+      let pageWidth;
+
+      if (isMobile) {
+        pageWidth = availableWidth * 0.9;
+      } else {
+        // Tăng độ rộng mỗi trang, nhưng vẫn giữ tỉ lệ dọc
+        pageWidth = Math.min(availableWidth / 2.25, 430);
+      }
+
       let pageHeight = pageWidth * PAGE_RATIO;
 
-      const maxHeight = window.innerHeight * 0.6;
-      if (pageHeight > maxHeight) {
-        pageHeight = maxHeight;
+      if (pageHeight > availableHeight) {
+        pageHeight = availableHeight;
         pageWidth = pageHeight / PAGE_RATIO;
       }
 
@@ -447,159 +512,170 @@ const FlipBook = React.forwardRef((props = {}, ref) => {
     >
       <style>{`
         .flipbook-container {
-          width: 100%;
-          max-width: 1200px;
-          margin: 0 auto;
-          padding: 40px 20px;
-          background: #121212;
-          border-radius: 24px;
-          box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-          color: white;
-        }
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 18px 20px 16px;
+  background: #121212;
+  border-radius: 18px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+  color: white;
+}
 
-        .flipbook-header {
-          text-align: center;
-          margin-bottom: 30px;
-        }
+.flipbook-header {
+  text-align: center;
+  margin-bottom: 12px;
+}
 
-        .flipbook-title {
-          font-family: 'Playfair Display', serif;
-          font-size: 2.5rem;
-          margin-bottom: 10px;
-          background: linear-gradient(to right, #fff, #aaa);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-        }
+.flipbook-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  margin-bottom: 4px;
+  background: linear-gradient(to right, #fff, #aaa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
 
-        .flipbook-stage {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          perspective: 3000px;
-          padding: 20px 0;
-          min-height: 400px;
-        }
+.flipbook-header p {
+  margin: 0;
+  font-size: 0.85rem;
+  opacity: 0.55 !important;
+}
 
-        .dialectic-book {
-          position: relative;
-          box-shadow: 0 30px 100px rgba(0,0,0,0.8);
-        }
+.flipbook-stage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  perspective: 3000px;
+  padding: 8px 0 10px;
+  min-height: unset;
+}
 
-        .dialectic-book::after {
-          content: "";
-          position: absolute;
-          left: 50%;
-          top: 0;
-          width: 10px;
-          height: 100%;
-          background: linear-gradient(
-            to right,
-            rgba(0,0,0,0.4) 0%,
-            rgba(255,255,255,0.1) 50%,
-            rgba(0,0,0,0.4) 100%
-          );
-          transform: translateX(-50%);
-          z-index: 100;
-          pointer-events: none;
-        }
+.dialectic-book {
+  position: relative;
+  box-shadow: 0 22px 70px rgba(0,0,0,0.75);
+}
 
-        .page {
-          background: #fff;
-          overflow: hidden;
-        }
+.dialectic-book::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 10px;
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    rgba(0,0,0,0.4) 0%,
+    rgba(255,255,255,0.1) 50%,
+    rgba(0,0,0,0.4) 100%
+  );
+  transform: translateX(-50%);
+  z-index: 100;
+  pointer-events: none;
+}
 
-        .page-inner {
-          width: 100%;
-          height: 100%;
-          position: relative;
-        }
+.page {
+  background: #000;
+  overflow: hidden;
+}
 
-        .page-inner::before {
-          content: "";
-          position: absolute;
-          top: 0;
-          width: 60px;
-          height: 100%;
-          z-index: 10;
-          pointer-events: none;
-        }
+.page-inner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background: #000;
+}
 
-        .page-left .page-inner::before {
-          right: 0;
-          background: linear-gradient(to left, rgba(0,0,0,0.4) 0%, transparent 100%);
-        }
+.page-inner::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 60px;
+  height: 100%;
+  z-index: 10;
+  pointer-events: none;
+}
 
-        .page-right .page-inner::before {
-          left: 0;
-          background: linear-gradient(to right, rgba(0,0,0,0.4) 0%, transparent 100%);
-        }
+.page-left .page-inner::before {
+  right: 0;
+  background: linear-gradient(to left, rgba(0,0,0,0.4) 0%, transparent 100%);
+}
 
-        .page-image {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          display: block;
-        }
+.page-right .page-inner::before {
+  left: 0;
+  background: linear-gradient(to right, rgba(0,0,0,0.4) 0%, transparent 100%);
+}
 
-        .flipbook-footer {
-          display: flex;
-          justify-content: center;
-          gap: 15px;
-          margin-top: 30px;
-          flex-wrap: wrap;
-        }
+.page-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  background: #000;
+}
 
-        .ui-btn {
-          padding: 10px 20px;
-          border-radius: 50px;
-          border: 1px solid rgba(255,255,255,0.1);
-          background: rgba(255,255,255,0.05);
-          color: white;
-          cursor: pointer;
-          transition: all 0.3s;
-          font-weight: 500;
-          backdrop-filter: blur(5px);
-        }
+.flipbook-footer {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
 
-        .ui-btn:hover {
-          background: #2563eb;
-          transform: translateY(-2px);
-          box-shadow: 0 10px 20px rgba(37, 99, 235, 0.3);
-        }
+.ui-btn {
+  padding: 8px 16px;
+  border-radius: 50px;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.05);
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-size: 0.88rem;
+  font-weight: 600;
+  backdrop-filter: blur(5px);
+}
 
-        .ui-btn.active {
-          background: #2563eb;
-          border-color: #3b82f6;
-        }
+.ui-btn:hover {
+  background: #2563eb;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(37, 99, 235, 0.3);
+}
 
-        .page-indicator {
-          background: rgba(37, 99, 235, 0.2);
-          color: #60a5fa;
-          padding: 5px 15px;
-          border-radius: 20px;
-          font-size: 0.9rem;
-          margin-left: 20px;
-          display: inline-block;
-        }
+.ui-btn.active {
+  background: #2563eb;
+  border-color: #3b82f6;
+}
 
-        .story-card {
-          margin-top: 24px;
-          padding: 18px 20px;
-          border-radius: 18px;
-          background: rgba(255,255,255,0.06);
-          border: 1px solid rgba(255,255,255,0.08);
-          color: rgba(255,255,255,0.9);
-          line-height: 1.7;
-        }
+.page-indicator {
+  background: rgba(37, 99, 235, 0.2);
+  color: #60a5fa;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.82rem;
+  margin-left: 0;
+  display: inline-block;
+  margin-top: 6px;
+}
 
-        .story-card-label {
-          font-size: 12px;
-          text-transform: uppercase;
-          letter-spacing: 0.12em;
-          color: #60a5fa;
-          margin-bottom: 8px;
-          font-weight: 700;
-        }
+.story-card {
+  margin-top: 14px;
+  padding: 12px 16px;
+  border-radius: 14px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.9);
+  line-height: 1.55;
+  font-size: 0.9rem;
+}
+
+.story-card-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #60a5fa;
+  margin-bottom: 6px;
+  font-weight: 700;
+}
 
         @media (max-width: 768px) {
           .flipbook-container {
@@ -823,7 +899,7 @@ const FlipBook = React.forwardRef((props = {}, ref) => {
       {!externalAudioRef && <audio ref={internalAudioRef} preload="auto" />}
 
       <div className="flipbook-header">
-        <h1 className="flipbook-title">Tấm Khiên Giữa Dòng Thị Trường</h1>
+        <h1 className="flipbook-title">Ngọn Đèn Ở Cuối Làng</h1>
         <p style={{ opacity: 0.7 }}>
           Sử dụng nút cuộn hoặc click để lật trang
         </p>
@@ -835,10 +911,10 @@ const FlipBook = React.forwardRef((props = {}, ref) => {
           width={bookSize.width}
           height={bookSize.height}
           size="fixed"
-          minWidth={200}
-          maxWidth={800}
-          minHeight={150}
-          maxHeight={600}
+          minWidth={260}
+          maxWidth={520}
+          minHeight={420}
+          maxHeight={820}
           usePortrait={false}
           startPage={0}
           drawShadow={true}
@@ -855,7 +931,12 @@ const FlipBook = React.forwardRef((props = {}, ref) => {
               className={`page ${index % 2 === 0 ? "page-right" : "page-left"}`}
             >
               <div className="page-inner">
-                <TechnicalPage page={page} />
+                <img
+                  src={page.src}
+                  alt={page.alt}
+                  className="page-image"
+                  draggable={false}
+                />
               </div>
             </div>
           ))}

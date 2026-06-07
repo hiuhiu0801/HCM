@@ -124,9 +124,9 @@ const STRATEGIC_MAP_EVENTS = [
         y: "34%",
         color: "#22C55E",
         icon: Globe2,
-        short: "Việt Nam mở rộng quan hệ với thế giới.",
+        short: "Việt Nam chủ động hội nhập với thế giới.",
         story:
-            "Hội nhập quốc tế giúp Việt Nam kết nối với tri thức, công nghệ, thương mại và văn hóa toàn cầu. Qua đó, đất nước có thêm nguồn lực để phát triển nhanh hơn, sâu hơn và bền vững hơn.",
+            "Hội nhập quốc tế giúp Việt Nam kết nối với tri thức, công nghệ, thương mại và văn hóa toàn cầu. Trên cơ sở đường lối độc lập, tự chủ, đa phương hóa, đa dạng hóa quan hệ đối ngoại, Việt Nam chủ động và tích cực hội nhập quốc tế để tạo thêm nguồn lực phát triển bền vững.",
         keywords: ["Toàn cầu", "Kết nối", "Hợp tác"],
     },
     {
@@ -138,9 +138,9 @@ const STRATEGIC_MAP_EVENTS = [
         y: "49%",
         color: "#14B8A6",
         icon: Network,
-        short: "Kết hợp nội lực với xu thế hiện đại.",
+        short: "Kết hợp sức mạnh dân tộc với sức mạnh thời đại.",
         story:
-            "Trong thời đại mới, phát triển không thể tách rời hội nhập. Việt Nam cần phát huy sức mạnh dân tộc, đồng thời tận dụng thành tựu khoa học, công nghệ và hợp tác quốc tế để tạo nên sức mạnh tổng hợp.",
+            "Trong thời đại mới, phát triển không thể tách rời hội nhập. Việt Nam cần kết hợp sức mạnh dân tộc với sức mạnh thời đại, phát huy nội lực, đồng thời tận dụng thành tựu khoa học, công nghệ và hợp tác quốc tế để tạo nên sức mạnh tổng hợp.",
         keywords: ["Thời đại", "Công nghệ", "Hợp tác"],
     },
     {
@@ -152,9 +152,9 @@ const STRATEGIC_MAP_EVENTS = [
         y: "63%",
         color: "#38BDF8",
         icon: Compass,
-        short: "Mở cửa nhưng không hòa tan.",
+        short: "Hội nhập nhưng không hòa tan.",
         story:
-            "Hội nhập không có nghĩa là đánh mất chính mình. Việt Nam tiếp thu tinh hoa thế giới nhưng vẫn giữ vững độc lập, chủ quyền, văn hóa và bản lĩnh dân tộc.",
+            "Hội nhập không có nghĩa là hòa tan hay đánh mất chính mình. Việt Nam tiếp thu tinh hoa nhân loại, đồng thời giữ vững độc lập, chủ quyền, bản sắc văn hóa và bản lĩnh dân tộc trong quá trình phát triển.",
         keywords: ["Bản sắc", "Độc lập", "Hội nhập"],
     },
     {
@@ -222,9 +222,9 @@ const STRATEGIC_MAP_EVENTS = [
         y: "78%",
         color: "#F97316",
         icon: Shield,
-        short: "Quốc phòng để bảo vệ, không phải để gây chiến.",
+        short: "Quốc phòng Việt Nam mang tính hòa bình, tự vệ.",
         story:
-            "Hình ảnh quốc phòng trong thời đại mới cần được nhìn bằng tinh thần hòa bình, bảo vệ và ổn định. Sức mạnh quốc phòng giúp đất nước yên tâm phát triển, giữ vững môi trường hòa bình cho nhân dân.",
+            "Quốc phòng Việt Nam nhằm bảo vệ độc lập, chủ quyền, thống nhất và toàn vẹn lãnh thổ, giữ vững môi trường hòa bình, ổn định để phát triển đất nước. Sức mạnh quốc phòng là nền tảng để nhân dân yên tâm xây dựng cuộc sống.",
         keywords: ["Quốc phòng", "Hòa bình", "Bảo vệ"],
     },
     {
@@ -238,7 +238,7 @@ const STRATEGIC_MAP_EVENTS = [
         icon: MapPin,
         short: "Bảo vệ từng phần lãnh thổ quốc gia.",
         story:
-            "Mỗi đường biên, cột mốc và vùng biển đều mang ý nghĩa thiêng liêng. Bảo vệ lãnh thổ không chỉ là nhiệm vụ của lực lượng chức năng, mà còn là nhận thức và trách nhiệm chung của toàn dân.",
+            "Mỗi đường biên, cột mốc và vùng biển đều gắn với chủ quyền, thống nhất và toàn vẹn lãnh thổ quốc gia. Bảo vệ lãnh thổ không chỉ là nhiệm vụ của lực lượng chức năng, mà còn là nhận thức và trách nhiệm chung của toàn dân.",
         keywords: ["Biên giới", "Lãnh thổ", "Trách nhiệm"],
     },
 ];
@@ -285,17 +285,33 @@ const CLUSTER_LABELS = [
     },
 ];
 
-function VietnamOutline({ selectedEvent }) {
+function VietnamOutline({ selectedEvent, isCompleted }) {
     return (
         <div className="absolute left-1/2 top-[50%] z-10 h-[82%] w-[36%] -translate-x-1/2 -translate-y-1/2">
             <div className="absolute inset-0 rounded-full bg-cyan-400/10 blur-[70px]" />
             <div className="absolute left-1/2 top-1/2 h-[78%] w-[150%] -translate-x-1/2 -translate-y-1/2 rounded-full border border-cyan-300/15" />
             <div className="absolute left-1/2 top-1/2 h-[92%] w-[175%] -translate-x-1/2 -translate-y-1/2 rounded-full border border-yellow-300/10" />
 
-            <img
+            <motion.img
                 src="/images/VietNam.png"
                 alt="Vietnam strategic map"
-                className="relative z-10 h-full w-full object-contain opacity-95 drop-shadow-[0_0_38px_rgba(34,211,238,0.65)]"
+                className="relative z-10 h-full w-full object-contain opacity-95"
+                animate={
+                    isCompleted
+                        ? {
+                            scale: [1, 1.035, 1],
+                            filter: [
+                                "drop-shadow(0 0 38px rgba(34,211,238,0.65))",
+                                "drop-shadow(0 0 70px rgba(250,204,21,0.95))",
+                                "drop-shadow(0 0 38px rgba(34,211,238,0.65))",
+                            ],
+                        }
+                        : {
+                            scale: 1,
+                            filter: "drop-shadow(0 0 38px rgba(34,211,238,0.65))",
+                        }
+                }
+                transition={{ duration: 2.2, repeat: isCompleted ? Infinity : 0 }}
             />
 
             <div className="absolute left-1/2 top-1/2 z-0 h-36 w-36 -translate-x-1/2 -translate-y-1/2 rounded-full bg-yellow-300/10 blur-3xl" />
@@ -599,10 +615,129 @@ function StoryPanel({ event, onClose }) {
         </motion.aside>
     );
 }
+function CompletionCelebration({ onClose }) {
+    return (
+        <motion.div
+            className="absolute inset-0 z-[80] flex items-center justify-center overflow-hidden bg-slate-950/72 backdrop-blur-md"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+        >
+            {/* Glow nền */}
+            <motion.div
+                className="absolute h-[520px] w-[520px] rounded-full bg-cyan-400/20 blur-3xl"
+                initial={{ scale: 0.4, opacity: 0 }}
+                animate={{ scale: [0.8, 1.18, 1], opacity: [0, 0.9, 0.55] }}
+                transition={{ duration: 1.4, ease: "easeOut" }}
+            />
+
+            <motion.div
+                className="absolute h-[680px] w-[680px] rounded-full border border-yellow-300/25"
+                initial={{ scale: 0.6, rotate: 0, opacity: 0 }}
+                animate={{ scale: 1, rotate: 360, opacity: 1 }}
+                transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
+            />
+
+            <motion.div
+                className="absolute h-[500px] w-[500px] rounded-full border border-cyan-300/20"
+                initial={{ scale: 0.8, rotate: 360, opacity: 0 }}
+                animate={{ scale: 1.15, rotate: 0, opacity: 1 }}
+                transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
+            />
+
+            {/* Sparkles */}
+            {Array.from({ length: 26 }).map((_, i) => (
+                <motion.span
+                    key={i}
+                    className="absolute h-1.5 w-1.5 rounded-full bg-yellow-200 shadow-[0_0_18px_rgba(250,204,21,0.9)]"
+                    style={{
+                        left: `${20 + Math.random() * 60}%`,
+                        top: `${58 + Math.random() * 26}%`,
+                    }}
+                    initial={{ y: 40, opacity: 0, scale: 0.5 }}
+                    animate={{
+                        y: [-10, -160 - Math.random() * 120],
+                        opacity: [0, 1, 0],
+                        scale: [0.4, 1.25, 0.2],
+                    }}
+                    transition={{
+                        duration: 2.2 + Math.random() * 1.4,
+                        delay: Math.random() * 0.9,
+                        repeat: Infinity,
+                        repeatDelay: Math.random() * 1.2,
+                    }}
+                />
+            ))}
+
+            {/* Card hoàn thành */}
+            <motion.div
+                className="relative z-10 w-[720px] max-w-[calc(100%-40px)] overflow-hidden rounded-[2rem] border border-yellow-300/40 bg-slate-950/88 text-center text-white shadow-[0_0_90px_rgba(250,204,21,0.24)]"
+                initial={{ y: 60, scale: 0.86, opacity: 0 }}
+                animate={{ y: 0, scale: 1, opacity: 1 }}
+                exit={{ y: 40, scale: 0.92, opacity: 0 }}
+                transition={{ type: "spring", stiffness: 180, damping: 18 }}
+            >
+                <div className="h-1.5 bg-gradient-to-r from-transparent via-yellow-300 to-transparent" />
+
+                <div className="p-8">
+                    <motion.div
+                        className="mx-auto mb-5 grid h-24 w-24 place-items-center rounded-full border border-yellow-300/50 bg-yellow-300/10"
+                        animate={{
+                            boxShadow: [
+                                "0 0 20px rgba(250,204,21,0.25)",
+                                "0 0 70px rgba(250,204,21,0.75)",
+                                "0 0 20px rgba(250,204,21,0.25)",
+                            ],
+                            scale: [1, 1.08, 1],
+                        }}
+                        transition={{ duration: 1.8, repeat: Infinity }}
+                    >
+                        <CheckCircle2 size={46} color="#FACC15" />
+                    </motion.div>
+
+                    <p className="text-xs font-black uppercase tracking-[0.26em] text-yellow-200">
+                        Hoàn thành bản đồ
+                    </p>
+
+                    <h3 className="mt-3 text-4xl font-black tracking-tight md:text-5xl">
+                        Bạn đã khám phá đủ 15/15 điểm
+                    </h3>
+
+                    <p className="mx-auto mt-5 max-w-2xl text-lg font-semibold leading-8 text-white/72">
+                        Hành trình kết nối lịch sử, đại đoàn kết, hội nhập, đời sống nhân dân
+                        và chủ quyền quốc phòng đã được hoàn tất.
+                    </p>
+
+                    <div className="mt-7 grid gap-3 md:grid-cols-5">
+                        {["Lịch sử", "Đoàn kết", "Hội nhập", "Đời sống", "Quốc phòng"].map((item) => (
+                            <div
+                                key={item}
+                                className="rounded-2xl border border-white/10 bg-white/[0.06] px-3 py-4 text-sm font-black text-white/85"
+                            >
+                                {item}
+                            </div>
+                        ))}
+                    </div>
+
+                    <button
+                        onClick={onClose}
+                        className="mt-8 rounded-full border border-cyan-300/30 bg-cyan-300/12 px-6 py-3 text-sm font-black uppercase tracking-[0.16em] text-cyan-100 transition hover:bg-cyan-300/20"
+                    >
+                        Tiếp tục xem bản đồ
+                    </button>
+                </div>
+            </motion.div>
+        </motion.div>
+    );
+}
 export default function StrategicStoryMap() {
     const [activeFilter, setActiveFilter] = useState("all");
     const [selectedEvent, setSelectedEvent] = useState(null);
     const [visitedIds, setVisitedIds] = useState([]);
+    const [dismissCompletion, setDismissCompletion] = useState(false);
+
+    const isCompleted = visitedIds.length === STRATEGIC_MAP_EVENTS.length;
+    const showCompletion = isCompleted && !dismissCompletion;
 
     const visibleEvents = useMemo(() => {
         if (activeFilter === "all") return STRATEGIC_MAP_EVENTS;
@@ -611,9 +746,18 @@ export default function StrategicStoryMap() {
 
     const handleSelectEvent = (event) => {
         setSelectedEvent(event);
-        setVisitedIds((prev) =>
-            prev.includes(event.id) ? prev : [...prev, event.id]
-        );
+
+        setVisitedIds((prev) => {
+            if (prev.includes(event.id)) return prev;
+
+            const next = [...prev, event.id];
+
+            if (next.length < STRATEGIC_MAP_EVENTS.length) {
+                setDismissCompletion(false);
+            }
+
+            return next;
+        });
     };
 
     return (
@@ -681,7 +825,7 @@ export default function StrategicStoryMap() {
 
                     <ConnectionLines events={visibleEvents} selectedEvent={selectedEvent} />
 
-                    <VietnamOutline selectedEvent={selectedEvent} />
+                    <VietnamOutline selectedEvent={selectedEvent} isCompleted={isCompleted} />
 
                     {CLUSTER_LABELS.map((cluster) => (
                         <ClusterLabel
@@ -722,6 +866,13 @@ export default function StrategicStoryMap() {
                             <StoryPanel
                                 event={selectedEvent}
                                 onClose={() => setSelectedEvent(null)}
+                            />
+                        )}
+                    </AnimatePresence>
+                    <AnimatePresence>
+                        {showCompletion && (
+                            <CompletionCelebration
+                                onClose={() => setDismissCompletion(true)}
                             />
                         )}
                     </AnimatePresence>
