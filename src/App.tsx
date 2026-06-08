@@ -8,13 +8,19 @@ import {
   ChevronRight,
   LogOut,
   User,
+  Users,
   Settings,
   History,
   LogIn,
   Camera,
   Sun,
   Moon,
-  Landmark
+  Landmark,
+  Bot,
+  Sparkles,
+  Video,
+  ExternalLink,
+  Presentation
 } from "lucide-react";
 import Session12CommandCenter from "./Session12CommandCenter";
 import StrategicStoryMap from "./StrategicStoryMap";
@@ -114,6 +120,8 @@ export default function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [isProfileDialogOpen, setIsProfileDialogOpen] = useState(false);
   const [isAuthDialogOpen, setIsAuthDialogOpen] = useState(false);
+  const [isStudentDialogOpen, setIsStudentDialogOpen] = useState(false);
+  const [presentationTab, setPresentationTab] = useState<"students" | "tools">("students");
   const [theme, setTheme] = useState<"light" | "dark">(() => {
     if (typeof window !== "undefined") {
       return (localStorage.getItem("theme") as "light" | "dark") || "light";
@@ -439,7 +447,6 @@ export default function App() {
               >
                 Flipbook
               </a>
-
             </div>
 
             <div className="flex items-center gap-3">
@@ -599,12 +606,215 @@ export default function App() {
         <section id="flipbook" className="relative z-10 bg-gray-50 dark:bg-[#0A0A0A] py-16">
           <FlipBook />
         </section>
+        <section id="support-tools" className="relative z-10 py-28 bg-white dark:bg-[#050505] overflow-hidden">
+          <div className="absolute inset-0 pointer-events-none">
+            <div className="absolute top-16 left-10 w-80 h-80 bg-[#8B0000]/10 dark:bg-[#D4AF37]/10 rounded-full blur-[130px]" />
+            <div className="absolute bottom-10 right-10 w-[420px] h-[420px] bg-red-900/10 dark:bg-[#8B0000]/20 rounded-full blur-[150px]" />
+            <div className="absolute inset-0 bg-[linear-gradient(rgba(139,0,0,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(139,0,0,0.04)_1px,transparent_1px)] dark:bg-[linear-gradient(rgba(212,175,55,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(212,175,55,0.04)_1px,transparent_1px)] bg-[size:56px_56px] opacity-40" />
+          </div>
 
+          <div className="container mx-auto px-4 relative z-10">
+            {/* Header */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.7 }}
+              className="max-w-5xl mx-auto text-center mb-16"
+            >
+              <Badge
+                variant="outline"
+                className="mb-5 px-6 py-2 border-[#8B0000]/40 dark:border-[#D4AF37]/50 text-[#8B0000] dark:text-[#D4AF37] bg-[#8B0000]/5 dark:bg-[#D4AF37]/10 uppercase tracking-[0.2em]"
+              >
+                Công cụ hỗ trợ thực hiện
+              </Badge>
+
+              <h2 className="text-4xl md:text-6xl font-serif font-bold text-gray-900 dark:text-white mb-6">
+                Hệ sinh thái công cụ hỗ trợ triển lãm
+              </h2>
+
+              <p className="text-gray-600 dark:text-gray-400 text-lg md:text-xl leading-relaxed">
+                Các công cụ được sử dụng để hỗ trợ lên ý tưởng, biên tập nội dung, tạo tư liệu hình ảnh, video minh họa và tham khảo nguồn thông tin chính thống cho bài thuyết trình.
+              </p>
+            </motion.div>
+
+            {/* Nhóm 1: AI */}
+            <div className="mb-16">
+              <div className="flex items-center gap-4 mb-8">
+                <div className="w-12 h-12 rounded-2xl bg-[#8B0000] dark:bg-[#D4AF37] text-white dark:text-black flex items-center justify-center shadow-lg">
+                  <Bot className="w-6 h-6" />
+                </div>
+
+                <div>
+                  <h3 className="text-2xl md:text-3xl font-serif font-bold text-gray-900 dark:text-white">
+                    Nhóm công cụ AI hỗ trợ nội dung
+                  </h3>
+                  <p className="text-gray-600 dark:text-gray-400 text-sm md:text-base">
+                    Dùng để phát triển ý tưởng, viết lời thuyết trình, chỉnh mạch văn và tối ưu cách trình bày.
+                  </p>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-7">
+                {[
+                  {
+                    name: "ChatGPT",
+                    desc: "Hỗ trợ xây dựng ý tưởng, viết nội dung thuyết trình, tạo kịch bản nói, chỉnh câu chữ và gợi ý bố cục cho từng phần.",
+                    icon: <Bot className="w-8 h-8" />,
+                    tag: "Ý tưởng & kịch bản",
+                    url: "https://chatgpt.com"
+                  },
+                  {
+                    name: "Gemini",
+                    desc: "Hỗ trợ phân tích nội dung, bổ sung góc nhìn, so sánh ý chính và gợi ý cách diễn đạt dễ hiểu hơn cho người nghe.",
+                    icon: <Sparkles className="w-8 h-8" />,
+                    tag: "Phân tích & gợi ý",
+                    url: "https://gemini.google.com"
+                  },
+                  {
+                    name: "Claude",
+                    desc: "Hỗ trợ biên tập đoạn văn dài, làm nội dung mạch lạc hơn, rút gọn ý và chuyển nội dung học thuật thành lời trình bày tự nhiên.",
+                    icon: <MessageSquare className="w-8 h-8" />,
+                    tag: "Biên tập & diễn đạt",
+                    url: "https://claude.ai"
+                  }
+                ].map((tool, index) => (
+                  <motion.div
+                    key={tool.name}
+                    initial={{ opacity: 0, y: 35 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-60px" }}
+                    transition={{ duration: 0.6, delay: index * 0.08 }}
+                    whileHover={{ y: -10 }}
+                    className="group relative p-8 rounded-[2rem] bg-gray-50 dark:bg-white/[0.04] border border-gray-200 dark:border-white/10 shadow-xl dark:shadow-none hover:shadow-2xl transition-all duration-500 overflow-hidden"
+                  >
+                    <div className="absolute inset-0 bg-gradient-to-br from-[#8B0000]/10 via-transparent to-[#D4AF37]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                    <div className="relative z-10">
+                      <div className="w-16 h-16 rounded-2xl bg-white dark:bg-black border border-gray-200 dark:border-white/10 flex items-center justify-center text-[#8B0000] dark:text-[#D4AF37] mb-7 group-hover:scale-110 transition-transform">
+                        {tool.icon}
+                      </div>
+
+                      <Badge className="mb-5 bg-[#8B0000]/10 text-[#8B0000] dark:bg-[#D4AF37]/10 dark:text-[#D4AF37] hover:bg-[#8B0000]/10 dark:hover:bg-[#D4AF37]/10 rounded-full px-4 py-1">
+                        {tool.tag}
+                      </Badge>
+
+                      <h4 className="text-3xl font-serif font-bold text-gray-900 dark:text-white mb-4">
+                        {tool.name}
+                      </h4>
+
+                      <p className="text-sm md:text-base leading-relaxed text-gray-600 dark:text-gray-400 mb-7 min-h-[120px]">
+                        {tool.desc}
+                      </p>
+
+                      <a
+                        href={tool.url}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-flex items-center gap-2 text-sm font-bold text-[#8B0000] dark:text-[#D4AF37] hover:underline"
+                      >
+                        Mở công cụ
+                        <ExternalLink className="w-4 h-4" />
+                      </a>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+
+            {/* Nhóm 2: Tư liệu ảnh / video / nguồn tin */}
+            <div>
+              <div className="flex items-center gap-4 mb-8">
+                <div className="w-12 h-12 rounded-2xl bg-[#8B0000] dark:bg-[#D4AF37] text-white dark:text-black flex items-center justify-center shadow-lg">
+                  <Video className="w-6 h-6" />
+                </div>
+
+                <div>
+                  <h3 className="text-2xl md:text-3xl font-serif font-bold text-gray-900 dark:text-white">
+                    Nhóm tư liệu ảnh, video và nguồn chính thống
+                  </h3>
+                  <p className="text-gray-600 dark:text-gray-400 text-sm md:text-base">
+                    Dùng để tìm hình ảnh minh họa, video nền và thông tin tham khảo có độ tin cậy cao.
+                  </p>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-7">
+                {[
+                  {
+                    name: "Pexels",
+                    desc: "Nguồn ảnh và video miễn phí dùng để tìm background, video minh họa, cảnh đời sống, thành phố, con người, giáo dục, công nghệ và không khí trình chiếu.",
+                    icon: <Video className="w-8 h-8" />,
+                    tag: "Ảnh / Video minh họa",
+                    url: "https://www.pexels.com"
+                  },
+                  {
+                    name: "TTXVN",
+                    desc: "Thông tấn xã Việt Nam là nguồn tham khảo chính thống, hỗ trợ tìm thông tin, hình ảnh và bối cảnh thời sự - lịch sử liên quan đến Việt Nam.",
+                    icon: <Landmark className="w-8 h-8" />,
+                    tag: "Nguồn thông tin chính thống",
+                    url: "https://www.vnanet.vn"
+                  }
+                ].map((tool, index) => (
+                  <motion.div
+                    key={tool.name}
+                    initial={{ opacity: 0, y: 35 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-60px" }}
+                    transition={{ duration: 0.6, delay: index * 0.08 }}
+                    whileHover={{ y: -10 }}
+                    className="group relative min-h-[300px] p-9 rounded-[2rem] bg-gray-50 dark:bg-white/[0.04] border border-gray-200 dark:border-white/10 shadow-xl dark:shadow-none hover:shadow-2xl transition-all duration-500 overflow-hidden"
+                  >
+                    <div className="absolute inset-0 bg-gradient-to-br from-[#8B0000]/10 via-transparent to-[#D4AF37]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                    <div className="relative z-10 flex flex-col h-full">
+                      <div className="w-16 h-16 rounded-2xl bg-white dark:bg-black border border-gray-200 dark:border-white/10 flex items-center justify-center text-[#8B0000] dark:text-[#D4AF37] mb-7 group-hover:scale-110 transition-transform">
+                        {tool.icon}
+                      </div>
+
+                      <Badge className="w-fit mb-5 bg-[#8B0000]/10 text-[#8B0000] dark:bg-[#D4AF37]/10 dark:text-[#D4AF37] hover:bg-[#8B0000]/10 dark:hover:bg-[#D4AF37]/10 rounded-full px-4 py-1">
+                        {tool.tag}
+                      </Badge>
+
+                      <h4 className="text-3xl md:text-4xl font-serif font-bold text-gray-900 dark:text-white mb-4">
+                        {tool.name}
+                      </h4>
+
+                      <p className="text-sm md:text-base leading-relaxed text-gray-600 dark:text-gray-400 mb-7 flex-1">
+                        {tool.desc}
+                      </p>
+
+                      <a
+                        href={tool.url}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-flex items-center gap-2 text-sm font-bold text-[#8B0000] dark:text-[#D4AF37] hover:underline"
+                      >
+                        Mở nguồn
+                        <ExternalLink className="w-4 h-4" />
+                      </a>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
       </main>
 
       {/* FOOTER */}
       <Footer />
-
+      <Button
+        size="lg"
+        className="fixed bottom-6 left-6 h-14 px-6 rounded-full shadow-[0_0_20px_rgba(139,0,0,0.25)] dark:shadow-[0_0_20px_rgba(212,175,55,0.35)] z-50 bg-white dark:bg-[#111] hover:bg-gray-100 dark:hover:bg-black text-[#8B0000] dark:text-[#D4AF37] border border-[#8B0000]/30 dark:border-[#D4AF37]/40 flex items-center gap-2 transition-all duration-300 hover:scale-105"
+        onClick={() => {
+          setPresentationTab("students");
+          setIsStudentDialogOpen(true);
+        }}
+      >
+        <Presentation className="w-5 h-5" />
+        <span className="font-bold text-sm tracking-wide">Thành Viên + Công cụ hỗ trợ</span>
+      </Button>
       {/* ==========================================
           CHATBOT & DIALOGS
       ========================================== */}
@@ -683,7 +893,347 @@ export default function App() {
           </motion.div>
         )}
       </AnimatePresence>
+      <Dialog open={isStudentDialogOpen} onOpenChange={setIsStudentDialogOpen}>
+        <DialogContent className="max-w-[98vw] xl:max-w-[1650px] max-h-[92vh] rounded-[2rem] bg-white dark:bg-[#0b0b0b] text-gray-900 dark:text-white border-gray-200 dark:border-[#D4AF37]/30 overflow-hidden p-0">
 
+          {/* Header */}
+          <div className="relative px-8 md:px-12 pt-8 pb-6 border-b border-gray-200 dark:border-white/10 bg-gradient-to-br from-red-50 via-white to-white dark:from-[#180404] dark:via-[#0b0b0b] dark:to-black">
+            <div className="absolute top-0 right-0 w-72 h-72 bg-[#8B0000]/10 dark:bg-[#D4AF37]/10 rounded-full blur-[90px] pointer-events-none" />
+
+            <DialogHeader className="relative z-10">
+              <DialogTitle className="font-serif text-4xl md:text-5xl text-[#8B0000] dark:text-[#D4AF37] flex items-center gap-4">
+                <Presentation className="w-9 h-9" />
+                Không gian trình chiếu
+              </DialogTitle>
+
+              <DialogDescription className="text-gray-600 dark:text-gray-400 text-base mt-3">
+                Quản lý phần giới thiệu nhóm và các công cụ hỗ trợ thực hiện sản phẩm triển lãm số.
+              </DialogDescription>
+            </DialogHeader>
+
+            {/* Tab */}
+            <div className="relative z-10 mt-7 flex flex-wrap gap-3">
+              <button
+                type="button"
+                onClick={() => setPresentationTab("students")}
+                className={cn(
+                  "px-6 py-3 rounded-full text-sm font-bold transition-all border",
+                  presentationTab === "students"
+                    ? "bg-[#8B0000] text-white border-[#8B0000] shadow-lg"
+                    : "bg-white/70 dark:bg-black/30 text-gray-600 dark:text-gray-300 border-gray-200 dark:border-white/10 hover:border-[#8B0000]/40 dark:hover:border-[#D4AF37]/40"
+                )}
+              >
+                <span className="inline-flex items-center gap-2">
+                  <Users className="w-4 h-4" />
+                  Nhóm sinh viên
+                </span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setPresentationTab("tools")}
+                className={cn(
+                  "px-6 py-3 rounded-full text-sm font-bold transition-all border",
+                  presentationTab === "tools"
+                    ? "bg-[#8B0000] text-white border-[#8B0000] shadow-lg"
+                    : "bg-white/70 dark:bg-black/30 text-gray-600 dark:text-gray-300 border-gray-200 dark:border-white/10 hover:border-[#8B0000]/40 dark:hover:border-[#D4AF37]/40"
+                )}
+              >
+                <span className="inline-flex items-center gap-2">
+                  <Bot className="w-4 h-4" />
+                  Công cụ hỗ trợ
+                </span>
+              </button>
+            </div>
+          </div>
+
+          {/* Body */}
+          <div className="px-8 md:px-12 py-8 bg-[#fafafa] dark:bg-[#050505] overflow-y-auto max-h-[calc(92vh-230px)]">
+            <AnimatePresence mode="wait">
+              {presentationTab === "students" ? (
+                <motion.div
+                  key="students-tab"
+                  initial={{ opacity: 0, y: 18 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -18 }}
+                  transition={{ duration: 0.25 }}
+                  className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-8"
+                >
+                  {[
+                    {
+                      name: "Huỳnh Kim Phúc",
+                      studentId: "SE192882",
+                      role: "Trình bày chính & làm quiz game",
+                      desc: "Phụ trách phần thời kỳ quá độ lên chủ nghĩa xã hội tại Việt Nam.",
+                      image: "/images/profile/Phuc.jpg"
+                    },
+                    {
+                      name: "Đỗ Trung Hiếu",
+                      studentId: "SE181734",
+                      role: "Hỗ trợ Chat AI & trình chiếu",
+                      desc: "Phụ trách phần chat AI và hỗ trợ thuyết trình.",
+                      image: "/images/profile/Hieu.jpg"
+                    },
+                    {
+                      name: "Nguyễn Hoàng Ngọc Hà",
+                      studentId: "SS181381",
+                      role: "Trình bày & soạn nội dung",
+                      desc: "Phụ trách phần vận dụng tư tưởng Hồ Chí Minh trong giai đoạn hiện nay.",
+                      image: "/images/profile/Hadepgai.jpg"
+                    },
+                    {
+                      name: "Huỳnh Tuấn Kiệt",
+                      studentId: "SE180309",
+                      role: "Thiết kế website & dựng video",
+                      desc: "Phụ trách giao diện, flipbook, strategic map và các công cụ hỗ trợ.",
+                      image: "/images/profile/Kiet.jpg"
+                    }
+                  ].map((student, index) => (
+                    <motion.div
+                      key={student.name}
+                      initial={{ opacity: 0, y: 35, scale: 0.96 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      transition={{ duration: 0.45, delay: index * 0.08 }}
+                      whileHover={{ y: -10 }}
+                      className="group relative rounded-[2rem] overflow-hidden bg-white dark:bg-white/[0.04] border border-gray-200 dark:border-white/10 shadow-xl hover:shadow-2xl dark:shadow-none transition-all duration-500"
+                    >
+                      <div className="absolute top-4 left-4 z-20 w-10 h-10 rounded-full bg-[#8B0000] dark:bg-[#D4AF37] text-white dark:text-black flex items-center justify-center font-bold shadow-lg">
+                        {index + 1}
+                      </div>
+
+                      <div className="relative h-[430px] overflow-hidden bg-gray-200 dark:bg-black">
+                        <img
+                          src={student.image}
+                          alt={student.name}
+                          className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-110"
+                          onError={(e) => {
+                            e.currentTarget.style.display = "none";
+                          }}
+                        />
+
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
+                        <div className="absolute inset-0 ring-1 ring-inset ring-white/10 pointer-events-none" />
+
+                        <div className="absolute bottom-6 left-6 right-6">
+                          <p className="text-white text-3xl font-serif font-bold leading-tight drop-shadow-xl">
+                            {student.name}
+                          </p>
+
+                          <p className="text-[#FFD76A] text-base font-black mt-2 tracking-wide drop-shadow">
+                            {student.studentId}
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="p-6 min-h-[155px] flex flex-col bg-white dark:bg-[#0b0b0b]">
+                        <Badge className="w-fit mb-4 bg-[#8B0000]/10 text-[#8B0000] dark:bg-[#D4AF37]/10 dark:text-[#D4AF37] hover:bg-[#8B0000]/10 dark:hover:bg-[#D4AF37]/10 rounded-full px-4 py-1.5 font-bold">
+                          {student.role}
+                        </Badge>
+
+                        <p className="text-sm leading-relaxed text-gray-600 dark:text-gray-400 flex-1">
+                          {student.desc}
+                        </p>
+
+                        <div className="mt-5 h-[4px] w-full rounded-full bg-gray-100 dark:bg-white/10 overflow-hidden">
+                          <div className="h-full w-2/3 bg-gradient-to-r from-[#8B0000] to-[#D4AF37] group-hover:w-full transition-all duration-700" />
+                        </div>
+                      </div>
+                    </motion.div>
+                  ))}
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="tools-tab"
+                  initial={{ opacity: 0, y: 18 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -18 }}
+                  transition={{ duration: 0.25 }}
+                  className="space-y-10"
+                >
+                  {/* AI Tools */}
+                  <div>
+                    <div className="flex items-center gap-4 mb-6">
+                      <div className="w-12 h-12 rounded-2xl bg-[#8B0000] dark:bg-[#D4AF37] text-white dark:text-black flex items-center justify-center shadow-lg">
+                        <Bot className="w-6 h-6" />
+                      </div>
+
+                      <div>
+                        <h3 className="text-2xl md:text-3xl font-serif font-bold text-gray-900 dark:text-white">
+                          Công cụ AI hỗ trợ nội dung
+                        </h3>
+                        <p className="text-gray-600 dark:text-gray-400 text-sm md:text-base">
+                          Hỗ trợ lên ý tưởng, viết lời thuyết trình, chỉnh mạch văn và tối ưu cách trình bày.
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-7">
+                      {[
+                        {
+                          name: "ChatGPT",
+                          desc: "Hỗ trợ xây dựng ý tưởng, viết nội dung thuyết trình, tạo kịch bản nói, chỉnh câu chữ và gợi ý bố cục cho từng phần.",
+                          icon: <Bot className="w-8 h-8" />,
+                          tag: "Ý tưởng & kịch bản",
+                          url: "https://chatgpt.com"
+                        },
+                        {
+                          name: "Gemini",
+                          desc: "Hỗ trợ phân tích nội dung, bổ sung góc nhìn, so sánh ý chính và gợi ý cách diễn đạt dễ hiểu hơn cho người nghe.",
+                          icon: <Sparkles className="w-8 h-8" />,
+                          tag: "Phân tích & gợi ý",
+                          url: "https://gemini.google.com"
+                        },
+                        {
+                          name: "Claude",
+                          desc: "Hỗ trợ biên tập đoạn văn dài, làm nội dung mạch lạc hơn, rút gọn ý và chuyển nội dung học thuật thành lời trình bày tự nhiên.",
+                          icon: <MessageSquare className="w-8 h-8" />,
+                          tag: "Biên tập & diễn đạt",
+                          url: "https://claude.ai"
+                        }
+                      ].map((tool, index) => (
+                        <motion.div
+                          key={tool.name}
+                          initial={{ opacity: 0, y: 25 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.35, delay: index * 0.08 }}
+                          whileHover={{ y: -8 }}
+                          className="group relative p-8 rounded-[2rem] bg-white dark:bg-white/[0.04] border border-gray-200 dark:border-white/10 shadow-xl dark:shadow-none hover:shadow-2xl transition-all duration-500 overflow-hidden"
+                        >
+                          <div className="absolute inset-0 bg-gradient-to-br from-[#8B0000]/10 via-transparent to-[#D4AF37]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                          <div className="relative z-10">
+                            <div className="w-16 h-16 rounded-2xl bg-gray-50 dark:bg-black border border-gray-200 dark:border-white/10 flex items-center justify-center text-[#8B0000] dark:text-[#D4AF37] mb-7 group-hover:scale-110 transition-transform">
+                              {tool.icon}
+                            </div>
+
+                            <Badge className="mb-5 bg-[#8B0000]/10 text-[#8B0000] dark:bg-[#D4AF37]/10 dark:text-[#D4AF37] hover:bg-[#8B0000]/10 dark:hover:bg-[#D4AF37]/10 rounded-full px-4 py-1">
+                              {tool.tag}
+                            </Badge>
+
+                            <h4 className="text-3xl font-serif font-bold text-gray-900 dark:text-white mb-4">
+                              {tool.name}
+                            </h4>
+
+                            <p className="text-sm md:text-base leading-relaxed text-gray-600 dark:text-gray-400 mb-7 min-h-[120px]">
+                              {tool.desc}
+                            </p>
+
+                            <a
+                              href={tool.url}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="inline-flex items-center gap-2 text-sm font-bold text-[#8B0000] dark:text-[#D4AF37] hover:underline"
+                            >
+                              Mở công cụ
+                              <ExternalLink className="w-4 h-4" />
+                            </a>
+                          </div>
+                        </motion.div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Source Tools */}
+                  <div>
+                    <div className="flex items-center gap-4 mb-6">
+                      <div className="w-12 h-12 rounded-2xl bg-[#8B0000] dark:bg-[#D4AF37] text-white dark:text-black flex items-center justify-center shadow-lg">
+                        <Video className="w-6 h-6" />
+                      </div>
+
+                      <div>
+                        <h3 className="text-2xl md:text-3xl font-serif font-bold text-gray-900 dark:text-white">
+                          Ảnh, video và nguồn tư liệu
+                        </h3>
+                        <p className="text-gray-600 dark:text-gray-400 text-sm md:text-base">
+                          Hỗ trợ tìm tư liệu minh họa và nguồn tham khảo chính thống cho bài trình bày.
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-7">
+                      {[
+                        {
+                          name: "Pexels",
+                          desc: "Nguồn ảnh và video miễn phí dùng để tìm background, video minh họa, cảnh đời sống, thành phố, con người, giáo dục, công nghệ và không khí trình chiếu.",
+                          icon: <Video className="w-8 h-8" />,
+                          tag: "Ảnh / Video minh họa",
+                          url: "https://www.pexels.com"
+                        },
+                        {
+                          name: "TTXVN",
+                          desc: "Thông tấn xã Việt Nam là nguồn tham khảo chính thống, hỗ trợ tìm thông tin, hình ảnh và bối cảnh thời sự - lịch sử liên quan đến Việt Nam.",
+                          icon: <Landmark className="w-8 h-8" />,
+                          tag: "Nguồn thông tin chính thống",
+                          url: "https://www.vnanet.vn"
+                        }
+                      ].map((tool, index) => (
+                        <motion.div
+                          key={tool.name}
+                          initial={{ opacity: 0, y: 25 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.35, delay: index * 0.08 }}
+                          whileHover={{ y: -8 }}
+                          className="group relative min-h-[280px] p-9 rounded-[2rem] bg-white dark:bg-white/[0.04] border border-gray-200 dark:border-white/10 shadow-xl dark:shadow-none hover:shadow-2xl transition-all duration-500 overflow-hidden"
+                        >
+                          <div className="absolute inset-0 bg-gradient-to-br from-[#8B0000]/10 via-transparent to-[#D4AF37]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                          <div className="relative z-10 flex flex-col h-full">
+                            <div className="w-16 h-16 rounded-2xl bg-gray-50 dark:bg-black border border-gray-200 dark:border-white/10 flex items-center justify-center text-[#8B0000] dark:text-[#D4AF37] mb-7 group-hover:scale-110 transition-transform">
+                              {tool.icon}
+                            </div>
+
+                            <Badge className="w-fit mb-5 bg-[#8B0000]/10 text-[#8B0000] dark:bg-[#D4AF37]/10 dark:text-[#D4AF37] hover:bg-[#8B0000]/10 dark:hover:bg-[#D4AF37]/10 rounded-full px-4 py-1">
+                              {tool.tag}
+                            </Badge>
+
+                            <h4 className="text-3xl md:text-4xl font-serif font-bold text-gray-900 dark:text-white mb-4">
+                              {tool.name}
+                            </h4>
+
+                            <p className="text-sm md:text-base leading-relaxed text-gray-600 dark:text-gray-400 mb-7 flex-1">
+                              {tool.desc}
+                            </p>
+
+                            <a
+                              href={tool.url}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="inline-flex items-center gap-2 text-sm font-bold text-[#8B0000] dark:text-[#D4AF37] hover:underline"
+                            >
+                              Mở nguồn
+                              <ExternalLink className="w-4 h-4" />
+                            </a>
+                          </div>
+                        </motion.div>
+                      ))}
+                    </div>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+
+          {/* Footer */}
+          <DialogFooter className="px-8 md:px-12 py-5 border-t border-gray-200 dark:border-white/10 bg-white dark:bg-[#0b0b0b]">
+            <Button
+              variant="outline"
+              onClick={() => setIsStudentDialogOpen(false)}
+              className="rounded-full px-7 border-gray-300 dark:border-white/20 text-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-white/10"
+            >
+              Đóng
+            </Button>
+
+            <a href="#hero">
+              <Button
+                onClick={() => setIsStudentDialogOpen(false)}
+                className="rounded-full px-10 bg-[#8B0000] dark:bg-[#D4AF37] text-white dark:text-black hover:bg-red-900 dark:hover:bg-[#b08d2b] font-bold"
+              >
+                Bắt đầu trình chiếu
+              </Button>
+            </a>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
       {/* Dialog Cập nhật Profile */}
       <Dialog open={isProfileDialogOpen} onOpenChange={setIsProfileDialogOpen}>
         <DialogContent className="sm:max-w-[425px] rounded-[2rem] bg-white dark:bg-[#111] text-gray-900 dark:text-white border-gray-200 dark:border-white/10">
