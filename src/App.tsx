@@ -971,7 +971,7 @@ export default function App() {
                       name: "Đỗ Trung Hiếu",
                       studentId: "SE181734",
                       role: "Hỗ trợ Chat AI & trình chiếu",
-                      desc: "Phụ trách phần chat AI và hỗ trợ thuyết trình.",
+                      desc: "Phụ trách phần chat AI và hỗ trợ thuyết trình, tạo môi trường cho web.",
                       image: "/images/profile/Hieu.jpg"
                     },
                     {
